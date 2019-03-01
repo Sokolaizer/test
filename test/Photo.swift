@@ -1,0 +1,17 @@
+//
+//  Photo.swift
+//  test
+//
+//  Created by Роман Козлов on 28.02.2019.
+//  Copyright © 2019 Роман Козлов. All rights reserved.
+//
+
+import Foundation
+
+struct Photo {
+    
+    enum Resolution: Int {
+        case height
+        case weight
+    }
+}
