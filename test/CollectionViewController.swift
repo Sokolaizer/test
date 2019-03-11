@@ -67,6 +67,11 @@ class CollectionViewController: UICollectionViewController {
     
 
     // MARK: UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var item = CollectionViewCell()
+        performSegue(withIdentifier: "CVSegue", sender: item)
+    }
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking

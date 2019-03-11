@@ -28,6 +28,7 @@ class ImageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak private var photo: UIImageView!
     

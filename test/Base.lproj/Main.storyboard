@@ -89,7 +89,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="collectionImageView" destination="f6s-CR-6Ix" id="kbf-oK-bwA"/>
-                                    <segue destination="Y3Z-Mt-9en" kind="show" id="tgR-3Q-Glc"/>
+                                    <segue destination="Y3Z-Mt-9en" kind="show" identifier="CVSegue" id="tgR-3Q-Glc"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -229,13 +229,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-IL-lmK">
-                                <rect key="frame" x="16" y="143" width="288" height="288"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbq-iX-X6A">
+                                <rect key="frame" x="16" y="139" width="288" height="288"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-IL-lmK">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="288"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="288" id="7R0-xO-Dnf"/>
+                                            <constraint firstAttribute="width" secondItem="DBr-IL-lmK" secondAttribute="height" multiplier="1:1" id="IUz-If-wHy"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="7R0-xO-Dnf"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="288" id="7R0-xO-Dnf"/>
-                                    <constraint firstAttribute="width" secondItem="DBr-IL-lmK" secondAttribute="height" multiplier="1:1" id="IUz-If-wHy"/>
+                                    <constraint firstItem="DBr-IL-lmK" firstAttribute="centerX" secondItem="sbq-iX-X6A" secondAttribute="centerX" id="4X7-0g-cg9"/>
+                                    <constraint firstAttribute="width" secondItem="sbq-iX-X6A" secondAttribute="height" multiplier="1:1" id="YbT-Em-Zs9"/>
+                                    <constraint firstAttribute="bottom" secondItem="DBr-IL-lmK" secondAttribute="bottom" id="ZYG-W0-Ldb"/>
+                                    <constraint firstItem="DBr-IL-lmK" firstAttribute="centerY" secondItem="sbq-iX-X6A" secondAttribute="centerY" id="dgM-Is-mcv"/>
+                                    <constraint firstAttribute="trailing" secondItem="DBr-IL-lmK" secondAttribute="trailing" id="ngx-ub-uJJ"/>
+                                    <constraint firstItem="DBr-IL-lmK" firstAttribute="top" secondItem="sbq-iX-X6A" secondAttribute="top" id="rQ0-6P-9kE"/>
                                 </constraints>
-                            </imageView>
+                            </scrollView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPic" translatesAutoresizingMaskIntoConstraints="NO" id="7Hd-6t-Sq1">
                                 <rect key="frame" x="16" y="86" width="35" height="35"/>
                                 <constraints>
@@ -271,21 +289,21 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="DBr-IL-lmK" firstAttribute="top" secondItem="7Hd-6t-Sq1" secondAttribute="bottom" constant="22" id="065-p1-bg1"/>
-                            <constraint firstItem="Ycf-Jr-slD" firstAttribute="trailing" secondItem="DBr-IL-lmK" secondAttribute="trailing" constant="16" id="0DD-IB-IFD"/>
+                            <constraint firstItem="Ycf-Jr-slD" firstAttribute="bottom" secondItem="sbq-iX-X6A" secondAttribute="bottom" constant="123" id="068-YI-DRc"/>
                             <constraint firstItem="7Hd-6t-Sq1" firstAttribute="leading" secondItem="Ycf-Jr-slD" secondAttribute="leading" constant="16" id="69X-Be-2Vd"/>
                             <constraint firstItem="Ycf-Jr-slD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="meA-jD-S3h" secondAttribute="trailing" priority="750" constant="8" id="Kmc-le-fkA"/>
-                            <constraint firstItem="DBr-IL-lmK" firstAttribute="top" secondItem="7Hd-6t-Sq1" secondAttribute="bottom" constant="22" id="MqH-KD-nZq"/>
                             <constraint firstItem="7Hd-6t-Sq1" firstAttribute="top" secondItem="Ycf-Jr-slD" secondAttribute="top" constant="22" id="OcA-Hq-zjg"/>
                             <constraint firstItem="meA-jD-S3h" firstAttribute="leading" secondItem="7Hd-6t-Sq1" secondAttribute="trailing" priority="750" constant="8" id="feN-mJ-HqD"/>
-                            <constraint firstItem="DBr-IL-lmK" firstAttribute="leading" secondItem="Ycf-Jr-slD" secondAttribute="leading" constant="16" id="gHv-Q0-3LW"/>
                             <constraint firstItem="meA-jD-S3h" firstAttribute="top" secondItem="Ycf-Jr-slD" secondAttribute="top" constant="22" id="h5a-EM-yit"/>
+                            <constraint firstItem="sbq-iX-X6A" firstAttribute="leading" secondItem="Ycf-Jr-slD" secondAttribute="leading" constant="16" id="jdD-cK-8pU"/>
+                            <constraint firstItem="sbq-iX-X6A" firstAttribute="top" secondItem="7Hd-6t-Sq1" secondAttribute="top" constant="53" id="k4F-U0-pJS"/>
+                            <constraint firstItem="Ycf-Jr-slD" firstAttribute="trailing" secondItem="sbq-iX-X6A" secondAttribute="trailing" constant="16" id="o1q-Kw-eeG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ycf-Jr-slD"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="068-YI-DRc"/>
                                 <exclude reference="Kmc-le-fkA"/>
-                                <exclude reference="065-p1-bg1"/>
                             </mask>
                         </variation>
                     </view>
@@ -293,6 +311,7 @@
                         <outlet property="accountNameLabel" destination="DaS-m9-Ph3" id="2TE-au-sQV"/>
                         <outlet property="locationLabel" destination="q5u-2M-qbd" id="skv-WJ-ILX"/>
                         <outlet property="photo" destination="DBr-IL-lmK" id="8eW-sz-8Vs"/>
+                        <outlet property="scrollView" destination="sbq-iX-X6A" id="HcK-SP-Ynn"/>
                         <outlet property="userPic" destination="7Hd-6t-Sq1" id="0Ee-Kj-Pt6"/>
                     </connections>
                 </viewController>

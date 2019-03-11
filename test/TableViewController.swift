@@ -78,13 +78,6 @@ class TableViewController: UITableViewController {
                 }
             }
         }
-
-//        let data = try? Data(contentsOf: URL(fileURLWithSampleURLs.temporaryImageList)
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
-//        if let myTVCell = cell as? TableViewCell {
-//            myTVCell.igImage.image = UIImage(data: data!)
-//        }
-
         // Configure the cell...
 
         return cell
