@@ -10,17 +10,21 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    private var images = [String]()
-    private var cellQuantity = SampleURLs.temporaryImageList.count
+    var data = [Post]()
+    let request = RequestData()
+    private var cellQuantity = RequestData.temporaryImageList.count
     
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        SampleURLs.getPhotos(completion: { images in
-            self.images = images
-        })
+
+//        request.getData (completion: { data in
+//            self.data = data
+//            print(self.data[0])
+//            self.tableView.reloadData()
+//        })
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -37,42 +41,31 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        request.getData (completion: { data in
+            self.data = data
+            tableView.reloadData()
+        })
+        
         // #warning Incomplete implementation, return the number of rows
-        return cellQuantity
+        return data.count
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            if identifier == "TVSegue" {
-                if let cell = sender as? TableViewCell {
-                    let indexPath = tableView.indexPath(for: cell)
-                    let destination = segue.destination as? ImageViewController
-                    
-                    if let url = SampleURLs.tmpImagesData[(indexPath?.row)!] {
-                        let data = try? Data(contentsOf: url)
-                        if let data = data {
-                            destination?.image = UIImage(data: data) ?? #imageLiteral(resourceName: "noImage")
-                            if let url = SampleURLs.tmpProfilePictureData {
-                                let data = try? Data(contentsOf: url)
-                                if let data = data {
-                                    destination?.profilePicture = UIImage(data: data) ?? #imageLiteral(resourceName: "userPic")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         if let cell = cell as? TableViewCell {
-            if let url = SampleURLs.tmpImagesData[indexPath.row] {
-                let data = try? Data(contentsOf: url)
-                if let data = data {
-                cell.igImage.image = UIImage(data: data)
+//            if let url = RequestData.tmpImagesData[indexPath.row] {
+            let post = data[indexPath.row]
+            if let url = URL(string: post.imagePath) {
+            
+                let imageData = try? Data(contentsOf: url)
+                if let imageData = imageData {
+                cell.igImage.image = UIImage(data: imageData)
                 } else {
                     cell.igImage.image = #imageLiteral(resourceName: "noImage")
                 }
@@ -120,14 +113,22 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            if identifier == "TVSegue" {
+                if let cell = sender as? TableViewCell {
+                    let indexPath = tableView.indexPath(for: cell)
+                    let destination = segue.destination as? ImageViewController
+                    
+                    destination?.image = RequestData.fetchImage(from: RequestData.tmpImagesData[((indexPath?.row)!)], or: #imageLiteral(resourceName: "noImage"))
+                    
+                    destination?.profilePicture = RequestData.fetchImage(from: RequestData.tmpProfilePictureData, or: #imageLiteral(resourceName: "noImage"))
+                    
+                }
+            }
+        }
     }
-    */
-
 }

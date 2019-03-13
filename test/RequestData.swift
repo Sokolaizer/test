@@ -10,97 +10,40 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-struct SampleURLs {
+struct RequestData {
     
     
     
-    static let urlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token=211784561.fae335e.43f88dfed2734374a9083235bbafd490"
-    
-//    static var recievedData = JSONContainer()
+    let urlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token=211784561.fae335e.43f88dfed2734374a9083235bbafd490"
     
     
     
     
-    static func getPhotos(completion: @escaping ([String]) -> ()) {
-        var images: [String] = []
+    
+    func getData(completion: @escaping ([Post]) -> ()) {
+        var recivedData: [Post] = []
         AF.request(urlString, method: .get).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                for post in json["data"] {
-                    if post.1["type"] == "carousel" {
-                        for image in post.1["carousel_media"] {
-                            let item = image.1["images"]["standard_resolution"]["url"].rawString()
-                            if let item = item {
-                                images.append(item)
-                            }
-                        }
+                for item in json["data"] {
+                    let id = item.1["id"].rawString()
+                    let likes = item.1["likes"]["count"].rawString()
+                    let accountName = item.1["user"]["full_name"].rawString()
+                    let location = item.1["location"]["name"].rawString()
+                    let picture = item.1["images"]["standard_resolution"]["url"].rawString()
+                    if let picture = picture, let id = id, let likes = likes, let accountName = accountName, let location = location {
+                        let post = Post(imagePath: picture, idPath: id, likesPath: likes, accountNamePath: accountName, locationPath: location)
+                        recivedData.append(post)
                     }
                 }
-                completion(images)
+                completion(recivedData)
                 
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
-//    static func getDefault() {
-//    guard let url = URL(string: urlString) else { return }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            if error != nil {
-//                print(error!.localizedDescription)
-//            }
-//
-//            guard let data = data else { return }
-//            let decoder = JSONDecoder()
-////            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//
-//            do {
-//                let someConst = try decoder.decode(JSONContainer.self, from: data)
-//
-//                DispatchQueue.main.async {
-//                    recievedData = someConst
-//                }
-//            } catch let jsonError {
-//                print(jsonError)
-//            }
-//        }.resume()
-//
-//        print(recievedData)
-//
-//    }
-//
-//    static func anotherGet() -> [String] {
-//        var images: [String] = []
-//        guard let url = URL(string: urlString) else { return ["Error"]}
-//        print(url)
-//
-//        URLSession.shared.dataTask(with: url) {(data, response, error) in
-//            if error != nil {
-//                print(error!.localizedDescription)
-//            }
-//            if let response = response {
-//                print(response)
-//            }
-//            guard let data = data else { return }
-//            let json = try! JSON(data: data)
-//            print(json)
-//            for post in json["data"] {
-//                if post.1["type"] == "carousel" {
-//                    for image in post.1["carousel_media"] {
-//                        let item = image.1["images"]["standard_resolution"]["url"].rawString()
-//                        if let item = item {
-//                            images.append(item)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return images
-//    }
-//
 
     
     static let temporaryProfilePicrurePath = "https://scontent.cdninstagram.com/vp/9bf57db2f802d9fa104eb639f9af86a5/5D23B5F7/t51.2885-19/11420423_1711958612365610_147992485_a.jpg?_nc_ht=scontent.cdninstagram.com"
@@ -121,6 +64,21 @@ struct SampleURLs {
     static let tmpImagesData = temporaryImageList.map({URL(string: $0)})
     
     static let tmpProfilePictureData = URL(string: temporaryProfilePicrurePath)
+    
+    static func fetchImage( from url:URL?, or defaultImage: UIImage) -> UIImage {
+        if let url = url{
+        let data = try? Data(contentsOf: url)
+        if let data = data {
+            return UIImage(data: data) ?? defaultImage
+        } else {
+            print("URL doesn't contents correct data")
+            return defaultImage
+        }
+        } else {
+            print("Incorrect URL")
+            return defaultImage
+        }
+    }
     
     
     
