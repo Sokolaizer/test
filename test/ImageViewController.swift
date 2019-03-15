@@ -14,14 +14,21 @@ class ImageViewController: UIViewController , UIScrollViewDelegate, UITableViewD
     
     var image = #imageLiteral(resourceName: "noImage")
     var profilePicture = #imageLiteral(resourceName: "userPic")
-    var commentQuantity = 5
+    var accountName = "Account Name"
+    var location = "Location undefined"
+    var likes = "0 Likes"
+    var id = ""
+    
+    let request = RequestData()
+    var comments: [(userName: String, text: String)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = image
         userPic.image = profilePicture
-        accountNameLabel.text = "Account Name"
-        locationLabel.text = "Location"
+        accountNameLabel.text = accountName
+        locationLabel.text = location
+        
         
         userPic.layer.borderWidth = 0.5
         userPic.layer.masksToBounds = false
@@ -30,6 +37,13 @@ class ImageViewController: UIViewController , UIScrollViewDelegate, UITableViewD
         userPic.clipsToBounds = true
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        request.getRecentComments(id: id, token: RequestData.token) { comments in
+            self.comments = comments
+            self.photoTableView.reloadSections(IndexSet(integer: IndexSet.Element(2)), with: UITableView.RowAnimation.fade)
+        }
     }
     
     @IBOutlet weak var scrollView: UIScrollView!{
@@ -92,7 +106,7 @@ class ImageViewController: UIViewController , UIScrollViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfRows = section != 2 ? 1 : commentQuantity
+        let numberOfRows = section != 2 ? 1 : comments.count
         return numberOfRows
     }
     
@@ -111,6 +125,16 @@ class ImageViewController: UIViewController , UIScrollViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: prototype, for: indexPath)
         if let cell = cell as? PhotoTableViewCell {
             cell.photo.image = image
+        } else if let cell = cell as? LikePhotoTableViewCell {
+            cell.likeCountLabel.text = likes
+        } else if let cell = cell as? CommentTableViewCell {
+            
+            let attributedUserString = NSMutableAttributedString(string:( comments[indexPath.row].userName + "  "), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .medium)])
+            let attributedCommentString = NSMutableAttributedString(string: comments[indexPath.row].text, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .light)])
+            
+            attributedUserString.append(attributedCommentString)
+            cell.commentLabel.attributedText = attributedUserString
+
         }
         
         return cell

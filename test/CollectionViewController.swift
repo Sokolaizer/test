@@ -10,21 +10,60 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-var arrayWithData = [Post]()
+
 let request = RequestData()
+var images: [UIImage] = []
+let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+
 
 class CollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        for data in RequestData.imagesData {
+            if let image = UIImage(data: data){
+            images.append(image)
+            }
+        }
+        
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+
+//        if !RequestData.isPostsLoaded {
+//
+//            activityIndicator.center = CGPoint(x: collectionView.frame.size.width  / 2, y: (collectionView.frame.size.height / 2 - 60.0) )
+//            activityIndicator.color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//            collectionView.addSubview(activityIndicator)
+//            activityIndicator.startAnimating()
+//
+//            request.getRecentMedia (completion: { recievedData in
+//                RequestData.savedData = recievedData
+//                for index in RequestData.savedData.indices {
+//                    RequestData.savedData[index].imageData = try? Data(contentsOf: (RequestData.savedData[index].imageURL!))
+//                    if let imageData = RequestData.savedData[index].imageData {
+//                        if let image = UIImage(data: imageData) {
+//                            images.append(image)
+//                        } else {
+//                            images.append(#imageLiteral(resourceName: "noImage"))
+//                        }
+//                    }
+//                }
+//                self.collectionView.reloadData()
+//                RequestData.isPostsLoaded = true
+//                activityIndicator.stopAnimating()
+//                activityIndicator.isHidden = true
+//                activityIndicator.color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//            })
+//        }
+
     }
 
     /*
@@ -44,31 +83,19 @@ class CollectionViewController: UICollectionViewController {
         return 1
     }
 
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        request.getData (completion: { recievedData in
-            self.arrayWithData = recievedData
-            collectionView.reloadData()
-        })
-        // #warning Incomplete implementation, return the number of items
-        return arrayWithData.count
-        
+
+
+        return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath)
         if let cell = cell as? CollectionViewCell {
-            if let url = RequestData.tmpImagesData[indexPath.row] {
-                let data = try? Data(contentsOf: url)
-                if let data = data {
-                    cell.collectionImageView.image = UIImage(data: data)
-                } else {
-                    cell.collectionImageView.image = #imageLiteral(resourceName: "noImage")
-                }
-            }
+            cell.collectionImageView.image = images[indexPath.row]
         }
         // Configure the cell
-    
         return cell
     }
     
@@ -79,9 +106,13 @@ class CollectionViewController: UICollectionViewController {
                     let indexPath = collectionView.indexPath(for: cell)
                     let destination = segue.destination as? ImageViewController
                     
-                    destination?.image = RequestData.fetchImage(from: RequestData.tmpImagesData[((indexPath?.row)!)], or: #imageLiteral(resourceName: "noImage"))
                     
+                    destination?.image = images[(indexPath?.row)!]
                     destination?.profilePicture = RequestData.fetchImage(from: RequestData.tmpProfilePictureData, or: #imageLiteral(resourceName: "noImage"))
+                    destination?.accountName = RequestData.savedData[((indexPath?.row)!)].accountName
+                    destination?.location = RequestData.savedData[((indexPath?.row)!)].location
+                    destination?.likes = RequestData.savedData[((indexPath?.row)!)].likes + " Likes"
+                    destination?.id = RequestData.savedData[((indexPath?.row)!)].id
                     
                 }
             }

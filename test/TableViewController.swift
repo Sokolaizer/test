@@ -10,9 +10,8 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    var data = [Post]()
-    let request = RequestData()
-    private var cellQuantity = RequestData.temporaryImageList.count
+    
+
     
 
 
@@ -41,13 +40,12 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        request.getData (completion: { data in
-            self.data = data
-            tableView.reloadData()
-        })
+//        if RequestData.savedData.count == 0 {
+//            tableView.reloadData()
+//        }
         
         // #warning Incomplete implementation, return the number of rows
-        return data.count
+        return RequestData.savedData.count
     }
     
 
@@ -60,19 +58,14 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         if let cell = cell as? TableViewCell {
 //            if let url = RequestData.tmpImagesData[indexPath.row] {
-            let post = data[indexPath.row]
-            if let url = URL(string: post.imagePath) {
-            
-                let imageData = try? Data(contentsOf: url)
-                if let imageData = imageData {
+            let post = RequestData.savedData[indexPath.row]
+                if let imageData = post.imageData {
                 cell.igImage.image = UIImage(data: imageData)
                 } else {
                     cell.igImage.image = #imageLiteral(resourceName: "noImage")
                 }
             }
-        }
         // Configure the cell...
-
         return cell
         
     }
@@ -123,9 +116,14 @@ class TableViewController: UITableViewController {
                     let indexPath = tableView.indexPath(for: cell)
                     let destination = segue.destination as? ImageViewController
                     
-                    destination?.image = RequestData.fetchImage(from: RequestData.tmpImagesData[((indexPath?.row)!)], or: #imageLiteral(resourceName: "noImage"))
-                    
+                    destination?.image = RequestData.fetchImage(from: RequestData.savedData[((indexPath?.row)!)].imageData, or: #imageLiteral(resourceName: "noImage"))
                     destination?.profilePicture = RequestData.fetchImage(from: RequestData.tmpProfilePictureData, or: #imageLiteral(resourceName: "noImage"))
+                    destination?.accountName = RequestData.savedData[((indexPath?.row)!)].accountName
+                    destination?.location = RequestData.savedData[((indexPath?.row)!)].location
+                    destination?.likes = RequestData.savedData[((indexPath?.row)!)].likes + " Likes"
+                    destination?.id = RequestData.savedData[((indexPath?.row)!)].id
+                    
+                    
                     
                 }
             }

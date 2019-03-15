@@ -10,10 +10,16 @@ import Foundation
 
 struct Post {
     
-    let imagePath: String
-    let idPath: String
-    let likesPath: String
-    let accountNamePath: String
-    let locationPath: String
+    let thumbnailString: String
+    let id: String
+    let likes: String
+    let accountName: String
+    let location: String
+    let photoString: String
     
+    var imageData: Data?
+    
+    var imageURL: URL? {
+        return URL(string: thumbnailString)
+    }
 }
