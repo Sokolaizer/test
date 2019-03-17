@@ -8,15 +8,16 @@
 
 import Foundation
 
-struct Post {
-    
+struct Post: Decodable {
+
     let thumbnailString: String
     let id: String
     let likes: String
     let accountName: String
     let location: String
     let photoString: String
-    
+    let createdTimeString: String
+
     var imageData: Data?
     
     var imageURL: URL? {

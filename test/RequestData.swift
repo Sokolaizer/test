@@ -11,21 +11,20 @@ import Alamofire
 import SwiftyJSON
 
 struct RequestData {
-    
+
     static var imagesData: [Data] = []
     static var token = ""
     
     let mediaUrlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token="
-    
-    
+
     static var savedData:[Post] = []
     static var isPostsLoaded = false
-    
+
     func getCommentUrlString(id: String , token: String) -> String {
         return "https://api.instagram.com/v1/media/" + id + "/comments?access_token=" + token
     }
-    
-    func getRecentComments(id: String,token: String, completion: @escaping ([(userName: String, text: String)]) -> ()) {
+
+    func getRecentComments(id: String, token: String, completion: @escaping ([(userName: String, text: String)]) -> ()) {
         var recievedData: [(userName: String, text: String)] = []
         AF.request(getCommentUrlString(id: id, token: token), method: .get).validate().responseJSON { response in
             switch response.result {
@@ -46,8 +45,6 @@ struct RequestData {
             }
     }
     
-    
-    
     func getRecentMedia(token: String, completion: @escaping ([Post]) -> ()) {
         var recivedData: [Post] = []
         let urlString = mediaUrlString + token
@@ -61,9 +58,10 @@ struct RequestData {
                     let accountName = item.1["user"]["full_name"].rawString()
                     let location = item.1["location"]["name"].rawString()
                     let thumbnail = item.1["images"]["thumbnail"]["url"].rawString()
+                    let createdTime = item.1["created_time"].rawString()
                     let photo = item.1["images"]["standard_resolution"]["url"].rawString()
-                    if let thumbnail = thumbnail, let id = id, let likes = likes, let accountName = accountName, let location = location, let photo = photo {
-                        let post = Post(thumbnailString: thumbnail, id: id, likes: likes, accountName: accountName, location: location, photoString: photo, imageData: nil)
+                    if let thumbnail = thumbnail, let id = id, let likes = likes, let accountName = accountName, let location = location, let photo = photo, let createdTime = createdTime {
+                        let post = Post(thumbnailString: thumbnail, id: id, likes: likes, accountName: accountName, location: location, photoString: photo, createdTimeString: createdTime, imageData: nil)
                         recivedData.append(post)
                     }
                 }
@@ -73,6 +71,14 @@ struct RequestData {
                 print(error)
             }
         }
+    }
+    
+    static func convertDate(from string: String) -> String {
+        let int = Int(string) ?? 0
+        let date = Date(timeIntervalSince1970: TimeInterval(int))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
     }
     
 
@@ -91,3 +97,29 @@ struct RequestData {
         }
     }
 }
+
+//enum Instagram {
+//    struct RecentResponse {
+//        let data: Instagram.Post
+//    }
+//
+//    struct Post: Decodable {
+//        let thumbnailString: String
+//        let id: String
+//        let likes: Likes
+//        let accountName: String
+//        let location: String
+//        let photoString: String
+//        let createdTimeString: String
+//
+//        var imageData: Data?
+//
+//        var imageURL: URL? {
+//            return URL(string: thumbnailString)
+//        }
+//
+//        struct Likes: Decodable {
+//            let count: Int
+//        }
+//    }
+//}
