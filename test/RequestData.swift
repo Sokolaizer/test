@@ -24,25 +24,19 @@ struct RequestData {
         return "https://api.instagram.com/v1/media/" + id + "/comments?access_token=" + token
     }
 
-    func getRecentComments(id: String, token: String, completion: @escaping ([(userName: String, text: String)]) -> ()) {
-        var recievedData: [(userName: String, text: String)] = []
+    func getRecentComments(id: String, token: String, completion: @escaping ([Instagram.CommentsResponse.Comment]) -> ()) {
         AF.request(getCommentUrlString(id: id, token: token), method: .get).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
-                let json = JSON(value)
-                for item in json["data"] {
-                    let user = item.1["from"]["username"].rawString()
-                    let text = item.1["text"].rawString()
-                    if let user = user, let text = text {
-                        recievedData.append((userName: user, text: text))
-                    }
-                }
-                completion(recievedData)
-                
+                let jsonData = try! JSON(value).rawData()
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let commentsResponse = try! decoder.decode(Instagram.CommentsResponse.self, from: jsonData)
+                completion(commentsResponse.data)
             case .failure(let error):
                 print(error)
             }
-            }
+        }
     }
     
     func getRecentMedia(token: String, completion: @escaping ([Post]) -> ()) {

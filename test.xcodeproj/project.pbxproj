@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301F8D14223FBA450054A966 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F8D13223FBA450054A966 /* Instagram.swift */; };
 		3060D1DF2226646200BF2068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060D1DE2226646200BF2068 /* AppDelegate.swift */; };
 		3060D1E42226646200BF2068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E22226646200BF2068 /* Main.storyboard */; };
 		3060D1E92226646700BF2068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E72226646700BF2068 /* LaunchScreen.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301F8D13223FBA450054A966 /* Instagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
 		3060D1DB2226646200BF2068 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3060D1DE2226646200BF2068 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3060D1E32226646200BF2068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				878E5A3D222AC1C600B59EDB /* TableViewController.swift */,
 				878E5A3F222AC1DF00B59EDB /* TableViewCell.swift */,
 				87D30FD2222BED95005C5F87 /* RequestData.swift */,
+				301F8D13223FBA450054A966 /* Instagram.swift */,
 				875F0BEC223951EF001A9A81 /* Post.swift */,
 				3060D1EA2226646700BF2068 /* Info.plist */,
 			);
@@ -254,6 +257,7 @@
 				878E5A3E222AC1C600B59EDB /* TableViewController.swift in Sources */,
 				87D30FDD223279F3005C5F87 /* PostViewController.swift in Sources */,
 				878E5A3A222AC17200B59EDB /* CollectionViewCell.swift in Sources */,
+				301F8D14223FBA450054A966 /* Instagram.swift in Sources */,
 				87D30FD3222BED95005C5F87 /* RequestData.swift in Sources */,
 				8703316A223AB40F00FD456F /* WebViewController.swift in Sources */,
 				878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */,
@@ -416,7 +420,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "-0.2.250.85";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -435,7 +439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "-0.2.250.85";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
