@@ -179,15 +179,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="329.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="20N-Xl-h0y">
-                                            <rect key="frame" x="-0.5" y="4" width="321" height="320.5"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="20N-Xl-h0y">
+                                            <rect key="frame" x="0.5" y="5" width="319.5" height="319.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="20N-Xl-h0y" secondAttribute="height" multiplier="1:1" id="5pN-1y-BFj"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="20N-Xl-h0y" firstAttribute="top" secondItem="Nua-GW-sGK" secondAttribute="top" constant="4" id="08J-iO-Hyh"/>
+                                        <constraint firstItem="20N-Xl-h0y" firstAttribute="top" secondItem="Nua-GW-sGK" secondAttribute="top" constant="5" id="08J-iO-Hyh"/>
                                         <constraint firstAttribute="trailing" secondItem="20N-Xl-h0y" secondAttribute="trailing" id="2qN-V9-jM2"/>
                                         <constraint firstAttribute="trailing" secondItem="20N-Xl-h0y" secondAttribute="trailing" id="6YH-5s-2A9"/>
                                         <constraint firstAttribute="bottom" secondItem="20N-Xl-h0y" secondAttribute="bottom" constant="5" id="Ld7-BO-cl0"/>
@@ -434,6 +434,6 @@
         <image name="userPic" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tgR-3Q-Glc"/>
+        <segue reference="WkV-Py-W2M"/>
     </inferredMetricsTieBreakers>
 </document>

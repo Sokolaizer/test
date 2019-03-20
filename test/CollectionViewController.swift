@@ -14,7 +14,7 @@ class CollectionViewController: UICollectionViewController {
     
     let request = RequestData()
     var images: [UIImage] = []
-    var photos: [(isLoaded: Bool, photo: UIImage?)] = []
+    var photos: [UIImage?] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,20 +22,17 @@ class CollectionViewController: UICollectionViewController {
         for data in RequestData.imagesData {
             if let image = UIImage(data: data){
             images.append(image)
-                photos.append((isLoaded: false, photo: nil))
-                print("small photo loaded")
-                
+            photos.append(nil)
             }
         }
         DispatchQueue.global(qos: .background).async {
-            for index in RequestData.savedData.indices{
-                if !self.photos[index].isLoaded {
-                    if let url = URL(string: RequestData.savedData[index].photoString)  {
-                        if let data = try? Data(contentsOf: url) {
-                            if let photo = UIImage(data: data) {
-                                print("photo \(index) loaded")
-                                self.photos[index] = (isLoaded: true, photo: photo)
-                            }
+            
+            for index in RequestData.mediaResponse.indices {
+                if let url = URL(string: RequestData.mediaResponse[index].images.standardResolution.url) {
+                    if let data = try? Data(contentsOf: url) {
+                        RequestData.photoData.append(data)
+                        if let photo = UIImage(data: data) {
+                            self.photos[index] = photo
                         }
                     }
                 }
@@ -69,28 +66,26 @@ class CollectionViewController: UICollectionViewController {
     }
 
     // move to router with push/present
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == "CVSegue" {
                 if let cell = sender as? CollectionViewCell {
                     let indexPath = collectionView.indexPath(for: cell)
                     let destination = segue.destination as? PostViewController
-                    
-                    
                     if let index = indexPath?.row {
-                    if photos[index].isLoaded {
-                    destination?.image = photos[index].photo ?? images[(indexPath?.row)!]
-                    } else {
-                        destination?.image = images[index]
+                        if let photo = photos[index] {
+                            destination?.image = photo
+                        } else {
+                            destination?.image = images[index]
                         }
                     }
-                    
                     destination?.profilePicture = RequestData.fetchImage(from: RequestData.tmpProfilePictureData, or: #imageLiteral(resourceName: "noImage"))
-                    destination?.accountName = RequestData.savedData[((indexPath?.row)!)].accountName
-                    destination?.location = RequestData.savedData[((indexPath?.row)!)].location
-                    destination?.likes = RequestData.savedData[((indexPath?.row)!)].likes + " Likes"
-                    destination?.id = RequestData.savedData[((indexPath?.row)!)].id
-                    destination?.date = RequestData.savedData[((indexPath?.row)!)].createdTimeString
+                    destination?.accountName = RequestData.mediaResponse[((indexPath?.row)!)].user.fullName
+                    destination?.location = RequestData.mediaResponse[((indexPath?.row)!)].location?.name ?? "Location Undefinded"
+                    destination?.likes = String (RequestData.mediaResponse[((indexPath?.row)!)].likes.count) + " Likes"
+                    destination?.id = RequestData.mediaResponse[((indexPath?.row)!)].id
+                    destination?.date =  RequestData.convertDate(from: RequestData.mediaResponse[((indexPath?.row)!)].createdTime)
                 }
             }
         }

@@ -25,13 +25,11 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userPic.image = profilePicture
         accountNameLabel.text = accountName
-        if location != "null"{
-            locationLabel.text = location
-        } else {
-            locationLabel.text = "Location undefined"
-        }
+        locationLabel.text = location
+        
         userPic.layer.borderWidth = 0.5
         userPic.layer.masksToBounds = false
         userPic.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -48,6 +46,13 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     
     @IBOutlet weak var photoTableView: UITableView!{
         didSet {
+//            photoTableView.sectionHeaderHeight = 70
+            
+//            let headerView = UIView()
+//            headerView.backgroundColor = #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
+//            headerView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+//            photoTableView.tableHeaderView = headerView
+            
             photoTableView.minimumZoomScale = 1.0
             photoTableView.maximumZoomScale = 1.8
             photoTableView.delegate = self
@@ -128,7 +133,7 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
             cell.photo.image = image
         } else if let cell = cell as? LikeTableViewCell {
             cell.likeCountLabel.text = likes
-            cell.createdTime.text = RequestData.convertDate(from: date)
+            cell.createdTime.text = date
         } else if let cell = cell as? CommentTableViewCell {
             let attributedUserString = NSMutableAttributedString(string:( comments[indexPath.row].from.username + "  "), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .medium)])
             let attributedCommentString = NSMutableAttributedString(string: comments[indexPath.row].text, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .light)])

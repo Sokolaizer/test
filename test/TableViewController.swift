@@ -9,6 +9,24 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+    
+    var images: [UIImage] = []
+    var photos: [UIImage?] = []
+    
+    override func viewDidLoad() {
+        for data in RequestData.imagesData {
+            if let image = UIImage(data: data){
+                images.append(image)
+                photos.append(nil)
+            }
+        }
+        for index in RequestData.photoData.indices {
+            if let image = UIImage(data: RequestData.photoData[index]) {
+                photos[index] = image
+            }
+        }
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -18,36 +36,42 @@ class TableViewController: UITableViewController {
                     let indexPath = tableView.indexPath(for: cell)
                     let destination = segue.destination as? PostViewController
                     
-                    destination?.image = RequestData.fetchImage(from: RequestData.savedData[((indexPath?.row)!)].imageData, or: #imageLiteral(resourceName: "noImage"))
+                    if let index = indexPath?.row {
+                        if let photo = photos[index] {
+                            destination?.image = photo
+                        } else {
+                            destination?.image = images[index]
+                        }
+                    }
+                    
+//                    destination?.image = RequestData.fetchImage(from: RequestData.savedData[((indexPath?.row)!)].imageData, or: #imageLiteral(resourceName: "noImage"))
                     destination?.profilePicture = RequestData.fetchImage(from: RequestData.tmpProfilePictureData, or: #imageLiteral(resourceName: "noImage"))
-                    destination?.accountName = RequestData.savedData[((indexPath?.row)!)].accountName
-                    destination?.location = RequestData.savedData[((indexPath?.row)!)].location
-                    destination?.likes = RequestData.savedData[((indexPath?.row)!)].likes + " Likes"
-                    destination?.id = RequestData.savedData[((indexPath?.row)!)].id
+                    destination?.accountName = RequestData.mediaResponse[((indexPath?.row)!)].user.fullName
+                    destination?.location = RequestData.mediaResponse[((indexPath?.row)!)].location?.name ?? "Location Undefinded"
+                    destination?.likes = String (RequestData.mediaResponse[((indexPath?.row)!)].likes.count) + " Likes"
+                    destination?.id = RequestData.mediaResponse[((indexPath?.row)!)].id
+                    destination?.date =  RequestData.convertDate(from: RequestData.mediaResponse[((indexPath?.row)!)].createdTime)
                 }
             }
         }
     }
-}
 
-extension TableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RequestData.savedData.count
+        return RequestData.imagesData.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         if let cell = cell as? TableViewCell {
-            //            if let url = RequestData.tmpImagesData[indexPath.row] {
-            let post = RequestData.savedData[indexPath.row]
-            if let imageData = post.imageData {
-                cell.igImage.image = UIImage(data: imageData)
+            let data = RequestData.imagesData[indexPath.row]
+            if let image = UIImage(data: data) {
+                cell.igImage.image = image
             } else {
                 cell.igImage.image = #imageLiteral(resourceName: "noImage")
             }

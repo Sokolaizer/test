@@ -24,4 +24,45 @@ enum Instagram {
         }
     }
     
+    struct MediaResponse: Codable {
+        let data: [NewPost]
+        
+        struct NewPost: Codable {
+            let id: String
+            let user: Person
+            var images: Images
+            let createdTime: String
+            let caption: Caption?
+            let likes: Like
+            let location: Location?
+            
+            struct Location: Codable {
+                let name: String
+            }
+            
+            struct Like: Codable {
+                let count: Int
+            }
+            struct Caption: Codable {
+                let text: String
+            }
+            
+            struct Person: Codable {
+                let id: String
+                let fullName: String
+                let profilePicture: String
+            }
+            struct Images: Codable {
+                var thumbnail: Image
+                let lowResolution: Image
+                let standardResolution: Image
+                
+                
+
+                struct Image: Codable {
+                    let url: String
+                }
+            }
+        }
+    }
 }

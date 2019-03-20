@@ -16,6 +16,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     var token = ""
+    
+    // TODO: - Request repeating
+    
     var requestMedia = RequestData()
 
     override func viewDidLoad() {
@@ -45,16 +48,27 @@ class WebViewController: UIViewController, WKNavigationDelegate {
                 token = String(urlString[separatorIndex...])
                 token.remove(at: token.startIndex)
             
-                    requestMedia.getRecentMedia (token: token, completion: { recievedData in
-                        RequestData.savedData = recievedData
-                        for index in RequestData.savedData.indices {
-                            RequestData.savedData[index].imageData = try? Data(contentsOf: (RequestData.savedData[index].imageURL!))
-                            if let imageData = RequestData.savedData[index].imageData {
-                                RequestData.imagesData.append(imageData)
+                    requestMedia.getRecentMedia (token: token, completion: { mediaResponse in
+                        RequestData.mediaResponse = mediaResponse
+
+                        for index in mediaResponse.indices {
+                            if let url = URL(string: mediaResponse[index].images.thumbnail.url)  {
+                                if let data = try? Data(contentsOf: url) {
+                                    RequestData.imagesData.append(data)
+                                }
                             }
                         }
+                        
+                        
+//                        RequestData.savedData = recievedData
+//                        for index in RequestData.savedData.indices {
+//                            RequestData.savedData[index].imageData = try? Data(contentsOf: (RequestData.savedData[index].imageURL!))
+//                            if let imageData = RequestData.savedData[index].imageData {
+//                                RequestData.imagesData.append(imageData)
+//                            }
+//                        }
                         RequestData.token = self.token
-                        RequestData.isPostsLoaded = true
+//                        RequestData.isPostsLoaded = true
                         self.performSegue(withIdentifier: "WebSegue", sender: self)
                     })
             }
