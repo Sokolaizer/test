@@ -11,7 +11,7 @@ import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     enum Constants {
-        static let halloLabelText = "Hallo!"
+        static let helloLabelText = "Hello!"
         static let labelLeftInset: CGFloat = 16
     }
     
@@ -42,7 +42,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             if let urlString = currentURL?.absoluteString {
                 web.isHidden = true
                 activityIndicator.isHidden = false
-                halloLabel.text = Constants.halloLabelText
+                helloLabel.text = Constants.helloLabelText
                 
                 let separatorIndex = urlString.firstIndex(of: "=") ?? urlString.endIndex
                 token = String(urlString[separatorIndex...])
@@ -58,17 +58,8 @@ class WebViewController: UIViewController, WKNavigationDelegate {
                                 }
                             }
                         }
-                        
-                        
-//                        RequestData.savedData = recievedData
-//                        for index in RequestData.savedData.indices {
-//                            RequestData.savedData[index].imageData = try? Data(contentsOf: (RequestData.savedData[index].imageURL!))
-//                            if let imageData = RequestData.savedData[index].imageData {
-//                                RequestData.imagesData.append(imageData)
-//                            }
-//                        }
                         RequestData.token = self.token
-//                        RequestData.isPostsLoaded = true
+                        
                         self.performSegue(withIdentifier: "WebSegue", sender: self)
                     })
             }
@@ -85,7 +76,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var web: WKWebView!
     
-    @IBOutlet weak var halloLabel: UILabel!
+    @IBOutlet weak var helloLabel: UILabel!
 //
 //    // MARK: - Navigation
 //

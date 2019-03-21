@@ -46,13 +46,6 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     
     @IBOutlet weak var photoTableView: UITableView!{
         didSet {
-//            photoTableView.sectionHeaderHeight = 70
-            
-//            let headerView = UIView()
-//            headerView.backgroundColor = #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
-//            headerView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-//            photoTableView.tableHeaderView = headerView
-            
             photoTableView.minimumZoomScale = 1.0
             photoTableView.maximumZoomScale = 1.8
             photoTableView.delegate = self
@@ -95,6 +88,8 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
             photoTableView.cellForRow(at: IndexPath(row: row, section: 2))?.isHidden = false
         }
     }
+    
+    
 
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         
