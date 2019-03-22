@@ -42,6 +42,11 @@ class TableViewController: UITableViewController {
                     let destination = segue.destination as? PostViewController
                     
                     if let index = indexPath?.row {
+                        if let captionText = Request.mediaResponse[index].caption?.text {
+                            let username = Instagram.CommentsResponse.Comment.Person.init(username: Request.mediaResponse[index].user.username)
+                            let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
+                            destination?.caption = caption
+                        }
                         if let photo = images[index] {
                             destination?.image = photo
                         } else {

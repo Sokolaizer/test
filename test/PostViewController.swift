@@ -17,8 +17,12 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     var likes = "0 Likes"
     var id = ""
     var date = ""
+    var caption :Instagram.CommentsResponse.Comment?
     
+    var isCommentsAnimationIsEnded = false
+
     private var comments: [Instagram.CommentsResponse.Comment] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +33,26 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
         
         userPic.layer.borderWidth = 0.5
         userPic.layer.masksToBounds = false
-        userPic.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        userPic.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         userPic.layer.cornerRadius = userPic.frame.height/2
         userPic.clipsToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         Request.getRecentComments(id: id) { comments in
-            self.comments = comments
-            self.photoTableView.reloadSections(IndexSet(integer: IndexSet.Element(2)), with: UITableView.RowAnimation.fade)
-        }
+            if let caption = self.caption {
+                self.comments = [caption] + comments
+            } else {
+                self.comments = comments
+            }
+            self.photoTableView.performBatchUpdates({self.photoTableView.reloadSections(IndexSet(integer: IndexSet.Element(2)), with: UITableView.RowAnimation.fade)}, completion: {
+                (finished) in
+                if finished {
+                    self.isCommentsAnimationIsEnded = true
+                }
+                })
+        
+            }
     }
     
     @IBOutlet weak var photoTableView: UITableView!{
@@ -49,7 +63,6 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
             photoTableView.dataSource = self
         }
     }
-    
     
     @IBOutlet weak private var userPic: UIImageView!
     @IBOutlet weak private var accountNameLabel: UILabel!
@@ -68,8 +81,13 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     // MARK: - UIScrollViewDelegate
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-
+        if isCommentsAnimationIsEnded {
+            print("MOJNO")
         return photoTableView.cellForRow(at: .init(row: 0, section: 0))
+        } else {
+            print("NELZYA")
+            return nil
+        }
     }
 
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {

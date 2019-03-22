@@ -14,12 +14,11 @@ enum Instagram {
         let data: [Comment]
         
         struct Comment: Codable {
-            let createdTime: String
-            let text: String
-            let from: Person
+            var text: String
+            var from: Person
             
             struct Person: Codable {
-                let username: String
+                var username: String
             }
         }
     }
@@ -50,6 +49,7 @@ enum Instagram {
             struct Person: Codable {
                 let id: String
                 let fullName: String
+                let username: String
                 let profilePicture: String
             }
             struct Images: Codable {
