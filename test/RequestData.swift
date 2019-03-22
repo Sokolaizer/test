@@ -18,10 +18,10 @@ struct RequestData {
     static var photoData: [Data] = []
     static var token = ""
     
-    let mediaUrlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token="
+    let mediaUrlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token"
 
     func getCommentUrlString(id: String , token: String) -> String {
-        return "https://api.instagram.com/v1/media/" + id + "/comments?access_token=" + token
+        return "https://api.instagram.com/v1/media/" + id + "/comments?access_token" + token
     }
 
     func getRecentComments(id: String, token: String, completion: @escaping ([Instagram.CommentsResponse.Comment]) -> ()) {

@@ -15,11 +15,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         static let labelLeftInset: CGFloat = 16
     }
     
-    var token = ""
-    
     // TODO: - Request repeating
     
-    var requestMedia = RequestData()
+    var request = RequestData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +43,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
                 helloLabel.text = Constants.helloLabelText
                 
                 let separatorIndex = urlString.firstIndex(of: "=") ?? urlString.endIndex
-                token = String(urlString[separatorIndex...])
-                token.remove(at: token.startIndex)
+                RequestData.token = String(urlString[separatorIndex...])
             
-                    requestMedia.getRecentMedia (token: token, completion: { mediaResponse in
+                    request.getRecentMedia (token: RequestData.token, completion: { mediaResponse in
                         RequestData.mediaResponse = mediaResponse
 
                         for index in mediaResponse.indices {
@@ -58,8 +55,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
                                 }
                             }
                         }
-                        RequestData.token = self.token
-                        
                         self.performSegue(withIdentifier: "WebSegue", sender: self)
                     })
             }
@@ -75,24 +70,5 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @IBOutlet weak var web: WKWebView!
-    
     @IBOutlet weak var helloLabel: UILabel!
-//
-//    // MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let identifier = segue.identifier {
-//            if identifier == "WebSegue" {
-//                let destinaton = segue.destination as? UITabBarController
-//                if let finalyDestination = destinaton?.viewControllers?[0] as? CollectionViewController {
-//                finalyDestination.collectionView.reloadData()
-//                }
-//            }
-//        }
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    }
-
-
 }

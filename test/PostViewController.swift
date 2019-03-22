@@ -67,6 +67,17 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
         }
     }
     
+    @IBAction func logOut(_ sender: UIBarButtonItem) {
+        let cookieJar : HTTPCookieStorage = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! as [HTTPCookie]{
+        cookieJar.deleteCookie(cookie)
+        }
+        RequestData.mediaResponse = []
+        RequestData.imagesData = []
+        RequestData.photoData = []
+        performSegue(withIdentifier: "logInSegue", sender: self)
+        
+    }
     
     
     
@@ -89,8 +100,6 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
         }
     }
     
-    
-
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         
         fadeView.isHidden = false

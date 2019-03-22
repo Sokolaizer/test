@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfT-UG-03y">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,24 +34,24 @@
             <objects>
                 <viewController id="wfT-UG-03y" customClass="WebViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ojk-bZ-H2R">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Obq-pq-rlo">
-                                <rect key="frame" x="300" y="280" width="0.0" height="0.0"/>
+                                <rect key="frame" x="160" y="264" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="40"/>
                                 <color key="textColor" red="0.45417988300323486" green="0.26633918285369873" blue="0.88661450147628784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="PjJ-0J-uqU">
-                                <rect key="frame" x="281.5" y="296" width="37" height="37"/>
+                                <rect key="frame" x="141.5" y="280" width="37" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PjJ-0J-uqU" secondAttribute="height" multiplier="1:1" id="OwF-Iq-MkF"/>
                                 </constraints>
                                 <color key="color" red="0.45417988300323486" green="0.26633918285369873" blue="0.88661450147628784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <wkWebView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-nC-W9c">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -95,7 +99,6 @@
                         </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tA7-sd-Xga">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -111,7 +114,7 @@
             <objects>
                 <collectionViewController id="A1a-4m-OtG" userLabel="Grid" customClass="CollectionViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="T6n-TD-HEA">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="zui-5p-9do">
@@ -145,8 +148,8 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CVReusableView" id="ixW-hi-c7P">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="5"/>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CVReusableView" id="ixW-hi-c7P">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="5"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </collectionReusableView>
                         <connections>
@@ -165,19 +168,19 @@
             <objects>
                 <tableViewController id="IOv-7p-dkv" customClass="TableViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sHa-LA-8ZI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" rowHeight="330" id="VPO-a7-abF" customClass="TableViewCell" customModule="test" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="330"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="330"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VPO-a7-abF" id="Nua-GW-sGK">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="329.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="329.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="20N-Xl-h0y">
-                                            <rect key="frame" x="140.5" y="5" width="319.5" height="319.5"/>
+                                            <rect key="frame" x="0.5" y="5" width="319.5" height="319.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="20N-Xl-h0y" secondAttribute="height" multiplier="1:1" id="5pN-1y-BFj"/>
                                             </constraints>
@@ -224,7 +227,7 @@
             <objects>
                 <viewController id="Y3Z-Mt-9en" customClass="PostViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AVf-f2-uWf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPic" translatesAutoresizingMaskIntoConstraints="NO" id="7Hd-6t-Sq1">
@@ -260,18 +263,18 @@
                                 </variation>
                             </stackView>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tor-PD-fXg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7St-bJ-5Ka">
-                                <rect key="frame" x="16" y="126" width="568" height="425"/>
+                                <rect key="frame" x="16" y="126" width="288" height="393"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likeCell" id="0HI-WO-pPt" customClass="LikeTableViewCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="568" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likeCell" id="0HI-WO-pPt" customClass="LikeTableViewCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0HI-WO-pPt" id="Wfo-QL-fcJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like" translatesAutoresizingMaskIntoConstraints="NO" id="5Pm-2j-wGm">
@@ -311,11 +314,11 @@
                                             <outlet property="likeCountLabel" destination="B1p-HZ-BWZ" id="1k1-nL-Edq"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" id="Utw-FT-h1s" customClass="CommentTableViewCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="568" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" id="Utw-FT-h1s" customClass="CommentTableViewCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Utw-FT-h1s" id="LgY-xI-u1n">
-                                            <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4c-oa-0gp">
@@ -342,11 +345,11 @@
                                             <outlet property="commentLabel" destination="r4c-oa-0gp" id="hqz-2C-79C"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photoCell" rowHeight="280" id="Kjq-XR-NX8" customClass="PhotoTableViewCell" customModule="test" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="568" height="280"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photoCell" rowHeight="280" id="Kjq-XR-NX8" customClass="PhotoTableViewCell" customModule="test" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="116" width="288" height="280"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kjq-XR-NX8" id="hyK-IP-LZN">
-                                            <rect key="frame" x="0.0" y="0.0" width="568" height="280"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="280"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="Nsk-HS-uoa">
@@ -390,13 +393,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ycf-Jr-slD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo" id="fyW-Rh-QvA"/>
+                    <navigationItem key="navigationItem" title="Photo" id="fyW-Rh-QvA">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="qb6-3V-xVv">
+                            <connections>
+                                <action selector="logOut:" destination="Y3Z-Mt-9en" id="HlJ-NR-Myh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="accountNameLabel" destination="DaS-m9-Ph3" id="2TE-au-sQV"/>
                         <outlet property="fadeView" destination="tor-PD-fXg" id="zCy-3K-RaY"/>
                         <outlet property="locationLabel" destination="q5u-2M-qbd" id="skv-WJ-ILX"/>
                         <outlet property="photoTableView" destination="7St-bJ-5Ka" id="SVk-ep-Mwh"/>
                         <outlet property="userPic" destination="7Hd-6t-Sq1" id="0Ee-Kj-Pt6"/>
+                        <segue destination="wfT-UG-03y" kind="showDetail" identifier="logInSegue" id="MzM-ZZ-CDe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajS-d0-utM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -431,6 +441,6 @@
         <image name="userPic" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WkV-Py-W2M"/>
+        <segue reference="tgR-3Q-Glc"/>
     </inferredMetricsTieBreakers>
 </document>
