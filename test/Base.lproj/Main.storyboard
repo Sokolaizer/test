@@ -107,7 +107,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gdL-9j-xRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-660" y="489"/>
+            <point key="canvasLocation" x="-660" y="634"/>
         </scene>
         <!--Grid-->
         <scene sceneID="lwb-p6-1si">
@@ -148,7 +148,7 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CVReusableView" id="ixW-hi-c7P">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CVReusableView" id="ixW-hi-c7P">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="5"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </collectionReusableView>
@@ -157,11 +157,20 @@
                             <outlet property="delegate" destination="A1a-4m-OtG" id="rrV-fb-a5f"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Grid" id="guZ-1H-Odh"/>
+                    <navigationItem key="navigationItem" title="Grid" id="guZ-1H-Odh">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="akE-jK-2W0">
+                            <connections>
+                                <action selector="logOut:" destination="A1a-4m-OtG" id="Ybb-7o-xGP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="wfT-UG-03y" kind="showDetail" identifier="logInSegue" id="VcI-AI-3St"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2R8-GO-Yj4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353" y="-210"/>
+            <point key="canvasLocation" x="353" y="-379"/>
         </scene>
         <!--Flow-->
         <scene sceneID="DYL-Sz-o6J">
@@ -204,7 +213,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
-                                    <outlet property="igImage" destination="20N-Xl-h0y" id="kJ1-xt-ppN"/>
+                                    <outlet property="photo" destination="20N-Xl-h0y" id="kJ1-xt-ppN"/>
                                     <segue destination="Y3Z-Mt-9en" kind="show" identifier="TVSegue" id="WkV-Py-W2M"/>
                                 </connections>
                             </tableViewCell>
@@ -215,12 +224,21 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Flow" image="list" selectedImage="list" id="fHd-kU-1lV"/>
-                    <navigationItem key="navigationItem" title="Flow" id="t97-aL-IW3"/>
+                    <navigationItem key="navigationItem" title="Flow" id="t97-aL-IW3">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="Hd6-0J-mnM">
+                            <connections>
+                                <action selector="logOut:" destination="IOv-7p-dkv" id="kS2-Yr-vQ1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <segue destination="wfT-UG-03y" kind="showDetail" identifier="logInSegue" id="yU7-yF-QSq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWl-rC-8NI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353" y="488"/>
+            <point key="canvasLocation" x="353" y="634"/>
         </scene>
         <!--Photo-->
         <scene sceneID="Q2f-f2-fMi">
@@ -270,7 +288,7 @@
                                 <rect key="frame" x="16" y="126" width="288" height="393"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likeCell" id="0HI-WO-pPt" customClass="LikeTableViewCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likeCell" id="0HI-WO-pPt" customClass="LikeTableViewCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0HI-WO-pPt" id="Wfo-QL-fcJ">
@@ -314,7 +332,7 @@
                                             <outlet property="likeCountLabel" destination="B1p-HZ-BWZ" id="1k1-nL-Edq"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" id="Utw-FT-h1s" customClass="CommentTableViewCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" id="Utw-FT-h1s" customClass="CommentTableViewCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Utw-FT-h1s" id="LgY-xI-u1n">
@@ -345,7 +363,7 @@
                                             <outlet property="commentLabel" destination="r4c-oa-0gp" id="hqz-2C-79C"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photoCell" rowHeight="280" id="Kjq-XR-NX8" customClass="PhotoTableViewCell" customModule="test" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="photoCell" rowHeight="280" id="Kjq-XR-NX8" customClass="PhotoTableViewCell" customModule="test" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="116" width="288" height="280"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kjq-XR-NX8" id="hyK-IP-LZN">
@@ -430,7 +448,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3vM-Av-Nwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-660" y="-210.21126760563379"/>
+            <point key="canvasLocation" x="-660" y="-379"/>
         </scene>
     </scenes>
     <resources>
@@ -441,6 +459,7 @@
         <image name="userPic" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tgR-3Q-Glc"/>
+        <segue reference="WkV-Py-W2M"/>
+        <segue reference="yU7-yF-QSq"/>
     </inferredMetricsTieBreakers>
 </document>

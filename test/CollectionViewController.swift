@@ -12,40 +12,40 @@ class CollectionViewController: UICollectionViewController {
 
     private let reuseIdentifier = "Cell"
     
-    let request = RequestData()
-    var images: [UIImage] = []
-    var photos: [UIImage?] = []
+    var thumbnails: [UIImage] = []
+    var images: [UIImage?] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        for data in RequestData.imagesData {
+        for data in Request.thumbnailsData {
             if let image = UIImage(data: data){
-            images.append(image)
-            photos.append(nil)
+            thumbnails.append(image)
+            images.append(nil)
             }
         }
         DispatchQueue.global(qos: .background).async {
-            
-            for index in RequestData.mediaResponse.indices {
-                if let url = URL(string: RequestData.mediaResponse[index].images.standardResolution.url) {
-                    if let data = try? Data(contentsOf: url) {
-                        RequestData.photoData.append(data)
+            for index in Request.mediaResponse.indices {
+                if let url = URL(string: Request.mediaResponse[index].images.standardResolution.url) {
+                    do{
+                        let data = try Data(contentsOf: url)
+                        Request.photoData.append(data)
                         if let photo = UIImage(data: data) {
-                            self.photos[index] = photo
+                            self.images[index] = photo
                         }
+                    } catch {
+                        print("URl doesn't contents data")
                     }
                 }
             }
         }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        // Register cell classes
         self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
+    
+    @IBAction func logOut(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "logInSegue", sender: self)
+        Request.logOut()
+    }
+    
 
     // MARK: UICollectionViewDataSource
 
@@ -54,18 +54,18 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return thumbnails.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CollectionViewCell.self), for: indexPath)
         if let cell = cell as? CollectionViewCell {
-            cell.collectionImageView.image = images[indexPath.row]
+            cell.collectionImageView.image = thumbnails[indexPath.row]
         }
         return cell
     }
-
-    // move to router with push/present
+    
+    // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -74,18 +74,18 @@ class CollectionViewController: UICollectionViewController {
                     let indexPath = collectionView.indexPath(for: cell)
                     let destination = segue.destination as? PostViewController
                     if let index = indexPath?.row {
-                        if let photo = photos[index] {
+                        if let photo = images[index] {
                             destination?.image = photo
                         } else {
-                            destination?.image = images[index]
+                            destination?.image = thumbnails[index]
                         }
                     }
-                    destination?.profilePicture = RequestData.fetchImage(from: RequestData.tmpProfilePictureData, or: #imageLiteral(resourceName: "noImage"))
-                    destination?.accountName = RequestData.mediaResponse[((indexPath?.row)!)].user.fullName
-                    destination?.location = RequestData.mediaResponse[((indexPath?.row)!)].location?.name ?? "Location Undefinded"
-                    destination?.likes = String (RequestData.mediaResponse[((indexPath?.row)!)].likes.count) + " Likes"
-                    destination?.id = RequestData.mediaResponse[((indexPath?.row)!)].id
-                    destination?.date =  RequestData.convertDate(from: RequestData.mediaResponse[((indexPath?.row)!)].createdTime)
+                    destination?.profilePicture = Request.fetchImage(from: Request.profilePictureData, or: #imageLiteral(resourceName: "noImage"))
+                    destination?.accountName = Request.mediaResponse[((indexPath?.row)!)].user.fullName
+                    destination?.location = Request.mediaResponse[((indexPath?.row)!)].location?.name ?? "Location Undefinded"
+                    destination?.likes = String (Request.mediaResponse[((indexPath?.row)!)].likes.count) + " Likes"
+                    destination?.id = Request.mediaResponse[((indexPath?.row)!)].id
+                    destination?.date =  Request.convertDate(from: Request.mediaResponse[((indexPath?.row)!)].createdTime)
                 }
             }
         }

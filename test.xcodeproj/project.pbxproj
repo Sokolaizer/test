@@ -14,14 +14,13 @@
 		87033168223A863700FD456F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87033167223A863600FD456F /* Assets.xcassets */; };
 		8703316A223AB40F00FD456F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87033169223AB40F00FD456F /* WebViewController.swift */; };
 		875F0BEB223930AE001A9A81 /* LikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F0BEA223930AE001A9A81 /* LikeTableViewCell.swift */; };
-		875F0BED223951EF001A9A81 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F0BEC223951EF001A9A81 /* Post.swift */; };
 		8786514022385705005CEB91 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8786513F22385705005CEB91 /* PhotoTableViewCell.swift */; };
 		8786514222385776005CEB91 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8786514122385776005CEB91 /* CommentTableViewCell.swift */; };
 		878E5A3A222AC17200B59EDB /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E5A39222AC17200B59EDB /* CollectionViewCell.swift */; };
 		878E5A3E222AC1C600B59EDB /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E5A3D222AC1C600B59EDB /* TableViewController.swift */; };
 		878E5A40222AC1DF00B59EDB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E5A3F222AC1DF00B59EDB /* TableViewCell.swift */; };
 		878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E5A41222AC1F400B59EDB /* CollectionViewController.swift */; };
-		87D30FD3222BED95005C5F87 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D30FD2222BED95005C5F87 /* RequestData.swift */; };
+		87D30FD3222BED95005C5F87 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D30FD2222BED95005C5F87 /* Request.swift */; };
 		87D30FDD223279F3005C5F87 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D30FDC223279F3005C5F87 /* PostViewController.swift */; };
 		AE0F231B40F51A1EF4C8ABF8 /* Pods_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53C5D4EB1476072812EDE79 /* Pods_test.framework */; };
 /* End PBXBuildFile section */
@@ -37,14 +36,13 @@
 		87033167223A863600FD456F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87033169223AB40F00FD456F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		875F0BEA223930AE001A9A81 /* LikeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeTableViewCell.swift; sourceTree = "<group>"; };
-		875F0BEC223951EF001A9A81 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		8786513F22385705005CEB91 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		8786514122385776005CEB91 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		878E5A39222AC17200B59EDB /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		878E5A3D222AC1C600B59EDB /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		878E5A3F222AC1DF00B59EDB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		878E5A41222AC1F400B59EDB /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		87D30FD2222BED95005C5F87 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		87D30FD2222BED95005C5F87 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		87D30FDC223279F3005C5F87 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		A53C5D4EB1476072812EDE79 /* Pods_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C61A1BFCCB2752BC8841E560 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Pods/Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,16 +83,15 @@
 			isa = PBXGroup;
 			children = (
 				87033169223AB40F00FD456F /* WebViewController.swift */,
+				878E5A3D222AC1C600B59EDB /* TableViewController.swift */,
+				878E5A3F222AC1DF00B59EDB /* TableViewCell.swift */,
+				878E5A41222AC1F400B59EDB /* CollectionViewController.swift */,
+				878E5A39222AC17200B59EDB /* CollectionViewCell.swift */,
 				87D30FDC223279F3005C5F87 /* PostViewController.swift */,
 				8703316C223D58CC00FD456F /* PostTableViewCells */,
 				3060D1E22226646200BF2068 /* Main.storyboard */,
-				878E5A41222AC1F400B59EDB /* CollectionViewController.swift */,
-				878E5A39222AC17200B59EDB /* CollectionViewCell.swift */,
-				878E5A3D222AC1C600B59EDB /* TableViewController.swift */,
-				878E5A3F222AC1DF00B59EDB /* TableViewCell.swift */,
-				87D30FD2222BED95005C5F87 /* RequestData.swift */,
+				87D30FD2222BED95005C5F87 /* Request.swift */,
 				301F8D13223FBA450054A966 /* Instagram.swift */,
-				875F0BEC223951EF001A9A81 /* Post.swift */,
 				3060D1EA2226646700BF2068 /* Info.plist */,
 			);
 			path = test;
@@ -232,11 +229,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-test/Pods-test-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Locksmith.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,13 +251,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8786514222385776005CEB91 /* CommentTableViewCell.swift in Sources */,
-				875F0BED223951EF001A9A81 /* Post.swift in Sources */,
 				8786514022385705005CEB91 /* PhotoTableViewCell.swift in Sources */,
 				878E5A3E222AC1C600B59EDB /* TableViewController.swift in Sources */,
 				87D30FDD223279F3005C5F87 /* PostViewController.swift in Sources */,
 				878E5A3A222AC17200B59EDB /* CollectionViewCell.swift in Sources */,
 				301F8D14223FBA450054A966 /* Instagram.swift in Sources */,
-				87D30FD3222BED95005C5F87 /* RequestData.swift in Sources */,
+				87D30FD3222BED95005C5F87 /* Request.swift in Sources */,
 				8703316A223AB40F00FD456F /* WebViewController.swift in Sources */,
 				878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */,
 				875F0BEB223930AE001A9A81 /* LikeTableViewCell.swift in Sources */,

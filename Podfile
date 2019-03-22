@@ -7,5 +7,6 @@ target 'test' do
 
   pod 'Alamofire', '5.0.0-beta.2'
   pod 'SwiftyJSON', '~> 4.2'
+  pod 'Locksmith', '~> 4.0'
 
 end

@@ -8,50 +8,50 @@
 
 import UIKit
 import WebKit
+import Locksmith
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     enum Constants {
         static let helloLabelText = "Hello!"
-        static let labelLeftInset: CGFloat = 16
+        static let authorizeURL = "https://api.instagram.com/oauth/authorize/?client_id=fae335ebae924fc5aa5855df05ee457d&redirect_uri=http://localhost&response_type=token"
+        static let authenticationPrefix = "https://www.instagram.com/accounts/login/?force_authentication="
+        static let tokenPrefix = "http://localhost/#access_token="
     }
-    
-    // TODO: - Request repeating
-    
-    var request = RequestData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let url = URL(string: "https://api.instagram.com/oauth/authorize/?client_id=fae335ebae924fc5aa5855df05ee457d&redirect_uri=http://localhost&response_type=token")
+        let url = URL(string: Constants.authorizeURL)
         let request = URLRequest(url: url!)
         web.navigationDelegate = self
         web.load(request)
-        
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         let currentURL = navigationAction.request.url ?? URL(string: "errorURL")
         decisionHandler(.allow)
-        if ((currentURL?.absoluteString.hasPrefix("https://www.instagram.com/accounts/login/?force_authentication="))!) {
+        if ((currentURL?.absoluteString.hasPrefix(Constants.authenticationPrefix))!) {
             web.isHidden = false
         }
-        if (currentURL?.absoluteString.hasPrefix("http://localhost/#access_token="))! {
+        if (currentURL?.absoluteString.hasPrefix(Constants.tokenPrefix))! {
             if let urlString = currentURL?.absoluteString {
                 web.isHidden = true
                 activityIndicator.isHidden = false
                 helloLabel.text = Constants.helloLabelText
-                
                 let separatorIndex = urlString.firstIndex(of: "=") ?? urlString.endIndex
-                RequestData.token = String(urlString[separatorIndex...])
+                do {
+                try Locksmith.saveData(data: ["token" : String(urlString[separatorIndex...])], forUserAccount: "CurrentAccount")
+                } catch {
+                    print("Unable to save data")
+                }
             
-                    request.getRecentMedia (token: RequestData.token, completion: { mediaResponse in
-                        RequestData.mediaResponse = mediaResponse
+                Request.getRecentMedia (completion: { mediaResponse in
+                        Request.mediaResponse = mediaResponse
 
                         for index in mediaResponse.indices {
                             if let url = URL(string: mediaResponse[index].images.thumbnail.url)  {
                                 if let data = try? Data(contentsOf: url) {
-                                    RequestData.imagesData.append(data)
+                                    Request.thumbnailsData.append(data)
                                 }
                             }
                         }
@@ -68,7 +68,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             activityIndicator.isHidden = true
         }
     }
-    
     @IBOutlet weak var web: WKWebView!
     @IBOutlet weak var helloLabel: UILabel!
 }

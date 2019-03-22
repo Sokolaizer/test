@@ -9,5 +9,5 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-    @IBOutlet weak var igImage: UIImageView!
+    @IBOutlet weak var photo: UIImageView!
 }

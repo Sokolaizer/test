@@ -9,23 +9,30 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Locksmith
 
-struct RequestData {
+struct Request {
     
-    static var mediaResponse: [Instagram.MediaResponse.NewPost] = []
-
-    static var imagesData: [Data] = []
-    static var photoData: [Data] = []
-    static var token = ""
-    
-    let mediaUrlString = "https://api.instagram.com/v1/users/self/media/recent/?access_token"
-
-    func getCommentUrlString(id: String , token: String) -> String {
-        return "https://api.instagram.com/v1/media/" + id + "/comments?access_token" + token
+    enum Constant {
+        static let mediaUrl = "https://api.instagram.com/v1/users/self/media/recent/?access_token"
+        static let userAccount = "CurrentAccount"
+        static let token = "token"
+        
+        static func getCommentUrlString(id: String , token: String) -> String {
+            return "https://api.instagram.com/v1/media/" + id + "/comments?access_token" + token
+        }
     }
-
-    func getRecentComments(id: String, token: String, completion: @escaping ([Instagram.CommentsResponse.Comment]) -> ()) {
-        AF.request(getCommentUrlString(id: id, token: token), method: .get).validate().responseJSON { response in
+    
+    static var mediaResponse: [Instagram.MediaResponse.Post] = []
+    static var thumbnailsData: [Data] = []
+    static var photoData: [Data] = []
+    static let profilePictureData = try? Data(contentsOf: URL(string: mediaResponse[0].user.profilePicture)!)
+    
+    
+    
+    static func getRecentComments(id: String, completion: @escaping ([Instagram.CommentsResponse.Comment]) -> ()) {
+        let token = Locksmith.loadDataForUserAccount(userAccount: Constant.userAccount)![Constant.token] as! String
+        AF.request(Constant.getCommentUrlString(id: id, token: token), method: .get).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
                 let jsonData = try! JSON(value).rawData()
@@ -39,8 +46,9 @@ struct RequestData {
         }
     }
     
-    func getRecentMedia(token: String, completion: @escaping ([Instagram.MediaResponse.NewPost]) -> ()) {
-        let urlString = mediaUrlString + token
+    static func getRecentMedia(completion: @escaping ([Instagram.MediaResponse.Post]) -> ()) {
+        let token = Locksmith.loadDataForUserAccount(userAccount: Constant.userAccount)![Constant.token] as! String
+        let urlString = Constant.mediaUrl + token
         AF.request(urlString, method: .get).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -64,12 +72,20 @@ struct RequestData {
         return dateFormatter.string(from: date)
     }
     
-
-    
-    static let temporaryProfilePicrurePath = "https://scontent.cdninstagram.com/vp/9bf57db2f802d9fa104eb639f9af86a5/5D23B5F7/t51.2885-19/11420423_1711958612365610_147992485_a.jpg?_nc_ht=scontent.cdninstagram.com"
-    
-    static let tmpProfilePictureData = try? Data(contentsOf: URL(string: temporaryProfilePicrurePath)!)
-    
+    static func logOut() {
+        let cookieJar : HTTPCookieStorage = HTTPCookieStorage.shared
+        for cookie in cookieJar.cookies! as [HTTPCookie]{
+            cookieJar.deleteCookie(cookie)
+        }
+        Request.mediaResponse = []
+        Request.thumbnailsData = []
+        Request.photoData = []
+        do {
+            try Locksmith.deleteDataForUserAccount(userAccount: Constant.userAccount)
+        } catch {
+            print("Unable to delete token")
+        }
+    }
     
     static func fetchImage( from data:Data?, or defaultImage: UIImage) -> UIImage {
         if let data = data {
@@ -80,4 +96,3 @@ struct RequestData {
         }
     }
 }
-

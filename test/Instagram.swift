@@ -25,9 +25,9 @@ enum Instagram {
     }
     
     struct MediaResponse: Codable {
-        let data: [NewPost]
+        let data: [Post]
         
-        struct NewPost: Codable {
+        struct Post: Codable {
             let id: String
             let user: Person
             var images: Images

@@ -9,8 +9,6 @@
 import UIKit
 
 class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
-
-    
     
     var image = #imageLiteral(resourceName: "noImage")
     var profilePicture = #imageLiteral(resourceName: "userPic")
@@ -20,7 +18,6 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     var id = ""
     var date = ""
     
-    let request = RequestData()
     private var comments: [Instagram.CommentsResponse.Comment] = []
 
     override func viewDidLoad() {
@@ -38,7 +35,7 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        request.getRecentComments(id: id, token: RequestData.token) { comments in
+        Request.getRecentComments(id: id) { comments in
             self.comments = comments
             self.photoTableView.reloadSections(IndexSet(integer: IndexSet.Element(2)), with: UITableView.RowAnimation.fade)
         }
@@ -50,17 +47,13 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
             photoTableView.maximumZoomScale = 1.8
             photoTableView.delegate = self
             photoTableView.dataSource = self
-            photoTableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
     }
     
     
     @IBOutlet weak private var userPic: UIImageView!
-    
     @IBOutlet weak private var accountNameLabel: UILabel!
-    
     @IBOutlet weak private var locationLabel: UILabel!
-    
     @IBOutlet weak var fadeView: UIView! {
         didSet {
             fadeView.isHidden = true
@@ -68,22 +61,11 @@ class PostViewController: UIViewController , UIScrollViewDelegate, UITableViewDe
     }
     
     @IBAction func logOut(_ sender: UIBarButtonItem) {
-        let cookieJar : HTTPCookieStorage = HTTPCookieStorage.shared
-        for cookie in cookieJar.cookies! as [HTTPCookie]{
-        cookieJar.deleteCookie(cookie)
-        }
-        RequestData.mediaResponse = []
-        RequestData.imagesData = []
-        RequestData.photoData = []
+        Request.logOut()
         performSegue(withIdentifier: "logInSegue", sender: self)
-        
     }
     
-    
-    
     // MARK: - UIScrollViewDelegate
-    
-    
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
 
