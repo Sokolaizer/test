@@ -1,87 +1,94 @@
-//
-//  TableViewController.swift
-//  test
-//
-//  Created by Валентина Маркова on 02/03/2019.
-//  Copyright © 2019 Роман Козлов. All rights reserved.
-//
 
 import UIKit
 
 class TableViewController: UITableViewController {
     
+    enum Constants {
+        static let defaultUserPic = #imageLiteral(resourceName: "userPic")
+        static let defaultImage = #imageLiteral(resourceName: "noImage")
+        static let defaultLocation = "Location undefinded"
+        static let cellIdentifier = "tableCell"
+        static let logInSegueIdentifier = "logInSegue"
+        static let cellSegueIdentifier = "TVSegue"
+    }
+    
     var thumbnails: [UIImage] = []
     var images: [UIImage?] = []
     
     override func viewDidLoad() {
-        for data in Request.thumbnailsData {
-            if let image = UIImage(data: data){
-                thumbnails.append(image)
-                images.append(nil)
-            }
+        for data in Store.thumbnailsData {
+            guard let image = UIImage(data: data) else {return}
+            thumbnails.append(image)
+            images.append(nil)
         }
-        for index in Request.photoData.indices {
-            if let image = UIImage(data: Request.photoData[index]) {
+        for index in Store.photoData.indices {
+            guard let image = UIImage(data: Store.photoData[index] ?? Store.thumbnailsData[index]) else {return}
                 images[index] = image
-            }
         }
     }
     
     @IBAction func logOut(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "logInSegue", sender: self)
         Request.logOut()
+        performSegue(withIdentifier: Constants.logInSegueIdentifier, sender: self)
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
-            if identifier == "TVSegue" {
-                if let cell = sender as? TableViewCell {
-                    let indexPath = tableView.indexPath(for: cell)
-                    let destination = segue.destination as? PostViewController
-                    
-                    if let index = indexPath?.row {
-                        if let captionText = Request.mediaResponse[index].caption?.text {
-                            let username = Instagram.CommentsResponse.Comment.Person.init(username: Request.mediaResponse[index].user.username)
-                            let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
-                            destination?.caption = caption
-                        }
-                        if let photo = images[index] {
-                            destination?.image = photo
-                        } else {
-                            destination?.image = thumbnails[index]
-                        }
-                    }
-                    destination?.profilePicture = Request.fetchImage(from: Request.profilePictureData, or: #imageLiteral(resourceName: "noImage"))
-                    destination?.accountName = Request.mediaResponse[((indexPath?.row)!)].user.fullName
-                    destination?.location = Request.mediaResponse[((indexPath?.row)!)].location?.name ?? "Location Undefinded"
-                    destination?.likes = String (Request.mediaResponse[((indexPath?.row)!)].likes.count) + " Likes"
-                    destination?.id = Request.mediaResponse[((indexPath?.row)!)].id
-                    destination?.date =  Request.convertDate(from: Request.mediaResponse[((indexPath?.row)!)].createdTime)
+            switch identifier {
+            case Constants.cellSegueIdentifier :
+                guard let cell = sender as? TableViewCell else {return}
+                let indexPath = tableView.indexPath(for: cell)
+                let destination = segue.destination as? PostViewController
+                guard let index = indexPath?.row else {return}
+                guard let captionText = Store.mediaResponse[index].caption?.text else {return}
+                let username = Instagram.CommentsResponse.Comment.Person.init(username: Store.mediaResponse[index].user.username)
+                let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
+                destination?.caption = caption
+                if let photo = images[index] {
+                    destination?.image = photo
+                } else {
+                    destination?.image = thumbnails[index]
                 }
+                guard let userPicData = Store.userPicData else {return}
+                destination?.profilePicture = UIImage(data: userPicData) ?? #imageLiteral(resourceName: "userPic")
+                destination?.accountName = Store.mediaResponse[index].user.fullName
+                destination?.location = Store.mediaResponse[index].location?.name ?? Constants.defaultLocation
+                destination?.likes = String (Store.mediaResponse[index].likes.count) + " Likes"
+                destination?.id = Store.mediaResponse[index].id
+                destination?.date =  Request.convertDate(from: Store.mediaResponse[index].createdTime)
+            case Constants.logInSegueIdentifier:
+                let destnation = segue.destination as? WebViewController
+                destnation?.isNeedAuthentication = true
+            default: break
             }
         }
     }
-
-    // MARK: - Table view data source
-
+    
+    // MARK: - Table View Data Source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Request.thumbnailsData.count
+        return Store.thumbnailsData.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath)
         if let cell = cell as? TableViewCell {
-            let data = Request.thumbnailsData[indexPath.row]
+            let data: Data
+            if Store.photoData[indexPath.row] != nil {
+                data = Store.photoData[indexPath.row]!
+            } else {
+                data = Store.thumbnailsData[indexPath.row]
+            }
             if let image = UIImage(data: data) {
                 cell.photo.image = image
             } else {
-                cell.photo.image = #imageLiteral(resourceName: "noImage")
+                cell.photo.image = Constants.defaultImage
             }
         }
         return cell

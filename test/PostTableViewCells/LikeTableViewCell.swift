@@ -1,10 +1,3 @@
-//
-//  LikePhotoTableViewCell.swift
-//  test
-//
-//  Created by Валентина Маркова on 13/03/2019.
-//  Copyright © 2019 Роман Козлов. All rights reserved.
-//
 
 import UIKit
 

@@ -1,54 +1,48 @@
-//
-//  CollectionViewController.swift
-//  test
-//
-//  Created by Валентина Маркова on 02/03/2019.
-//  Copyright © 2019 Роман Козлов. All rights reserved.
-//
 
 import UIKit
 
 class CollectionViewController: UICollectionViewController {
-
-    private let reuseIdentifier = "Cell"
+    
+    enum Constants {
+        static let reuseIdentifier = "Cell"
+        static let defaultLocation = "Location undefinded"
+        static let logInSegueIdentifier = "logInSegue"
+        static let cellSegueIdentifier = "CVSegue"
+    }
     
     var thumbnails: [UIImage] = []
     var images: [UIImage?] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        for data in Request.thumbnailsData {
-            if let image = UIImage(data: data){
+        for data in Store.thumbnailsData {
+            guard let image = UIImage(data: data) else {return}
             thumbnails.append(image)
             images.append(nil)
-            }
         }
         DispatchQueue.global(qos: .background).async {
-            for index in Request.mediaResponse.indices {
-                if let url = URL(string: Request.mediaResponse[index].images.standardResolution.url) {
-                    do{
-                        let data = try Data(contentsOf: url)
-                        Request.photoData.append(data)
-                        if let photo = UIImage(data: data) {
-                            self.images[index] = photo
-                        }
-                    } catch {
-                        print("URl doesn't contents data")
-                    }
+            for index in Store.mediaResponse.indices {
+                guard let url = URL(string: Store.mediaResponse[index].images.standardResolution.url) else {return}
+                do {
+                    let data = try Data(contentsOf: url)
+                    Store.photoData[index] = data
+                    guard let photo = UIImage(data: data) else {return}
+                    self.images[index] = photo
+                } catch {
+                    print(error)
                 }
             }
         }
-        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
     }
     
     @IBAction func logOut(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "logInSegue", sender: self)
         Request.logOut()
+        performSegue(withIdentifier: Constants.logInSegueIdentifier, sender: self)
     }
     
-
     // MARK: UICollectionViewDataSource
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -56,7 +50,7 @@ class CollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return thumbnails.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CollectionViewCell.self), for: indexPath)
         if let cell = cell as? CollectionViewCell {
@@ -68,31 +62,35 @@ class CollectionViewController: UICollectionViewController {
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            if identifier == "CVSegue" {
-                if let cell = sender as? CollectionViewCell {
-                    let indexPath = collectionView.indexPath(for: cell)
-                    let destination = segue.destination as? PostViewController
-                    if let index = indexPath?.row {
-                        if let captionText = Request.mediaResponse[index].caption?.text {
-                            let username = Instagram.CommentsResponse.Comment.Person.init(username: Request.mediaResponse[index].user.username)
-                            let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
-                        destination?.caption = caption
-                        }
-                        if let photo = images[index] {
-                            destination?.image = photo
-                        } else {
-                            destination?.image = thumbnails[index]
-                        }
-                    }
-                    destination?.profilePicture = Request.fetchImage(from: Request.profilePictureData, or: #imageLiteral(resourceName: "noImage"))
-                    destination?.accountName = Request.mediaResponse[((indexPath?.row)!)].user.fullName
-                    destination?.location = Request.mediaResponse[((indexPath?.row)!)].location?.name ?? "Location Undefinded"
-                    destination?.likes = String (Request.mediaResponse[((indexPath?.row)!)].likes.count) + " Likes"
-                    destination?.id = Request.mediaResponse[((indexPath?.row)!)].id
-                    destination?.date =  Request.convertDate(from: Request.mediaResponse[((indexPath?.row)!)].createdTime)
-                }
+        guard let identifier = segue.identifier else {return}
+        switch identifier {
+        case Constants.cellSegueIdentifier :
+            guard let cell = sender as? CollectionViewCell else {return}
+            let indexPath = collectionView.indexPath(for: cell)
+            let destination = segue.destination as? PostViewController
+            guard
+                let index = indexPath?.row,
+                let captionText = Store.mediaResponse[index].caption?.text,
+                let userPicData = Store.userPicData
+                else {return}
+            let username = Instagram.CommentsResponse.Comment.Person.init(username: Store.mediaResponse[index].user.username)
+            let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
+            destination?.caption = caption
+            if let photo = images[index] {
+                destination?.image = photo
+            } else {
+                destination?.image = thumbnails[index]
             }
+            destination?.profilePicture = UIImage(data: userPicData) ?? #imageLiteral(resourceName: "userPic")
+            destination?.accountName = Store.mediaResponse[index].user.fullName
+            destination?.location = Store.mediaResponse[index].location?.name ?? Constants.defaultLocation
+            destination?.likes = String (Store.mediaResponse[index].likes.count) + " Likes"
+            destination?.id = Store.mediaResponse[index].id
+            destination?.date =  Request.convertDate(from: Store.mediaResponse[index].createdTime)
+        case Constants.logInSegueIdentifier:
+            let destnation = segue.destination as? WebViewController
+            destnation?.isNeedAuthentication = true
+        default: break
         }
     }
 }

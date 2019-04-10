@@ -1,10 +1,3 @@
-//
-//  Instagram.swift
-//  test
-//
-//  Created by Роман Козлов on 18.03.2019.
-//  Copyright © 2019 Роман Козлов. All rights reserved.
-//
 
 import Foundation
 

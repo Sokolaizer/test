@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3015D65C224E7DEA003550E5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015D65B224E7DEA003550E5 /* Store.swift */; };
 		301F8D14223FBA450054A966 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F8D13223FBA450054A966 /* Instagram.swift */; };
 		3060D1DF2226646200BF2068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060D1DE2226646200BF2068 /* AppDelegate.swift */; };
 		3060D1E42226646200BF2068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E22226646200BF2068 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3015D65B224E7DEA003550E5 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		301F8D13223FBA450054A966 /* Instagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
 		3060D1DB2226646200BF2068 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3060D1DE2226646200BF2068 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				8703316C223D58CC00FD456F /* PostTableViewCells */,
 				3060D1E22226646200BF2068 /* Main.storyboard */,
 				87D30FD2222BED95005C5F87 /* Request.swift */,
+				3015D65B224E7DEA003550E5 /* Store.swift */,
 				301F8D13223FBA450054A966 /* Instagram.swift */,
 				3060D1EA2226646700BF2068 /* Info.plist */,
 			);
@@ -230,13 +233,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-test/Pods-test-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Locksmith.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -257,6 +258,7 @@
 				878E5A3A222AC17200B59EDB /* CollectionViewCell.swift in Sources */,
 				301F8D14223FBA450054A966 /* Instagram.swift in Sources */,
 				87D30FD3222BED95005C5F87 /* Request.swift in Sources */,
+				3015D65C224E7DEA003550E5 /* Store.swift in Sources */,
 				8703316A223AB40F00FD456F /* WebViewController.swift in Sources */,
 				878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */,
 				875F0BEB223930AE001A9A81 /* LikeTableViewCell.swift in Sources */,
