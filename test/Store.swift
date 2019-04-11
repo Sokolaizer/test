@@ -8,8 +8,8 @@
 
 import Foundation
 struct Store {
-    static var mediaResponse: [Instagram.MediaResponse.Post] = []
-    static var thumbnailsData: [Data] = []
-    static var photoData: [Data?] = []
-    static var userPicData: Data?
+  static var mediaResponse: [Instagram.MediaResponse.Post] = []
+  static var thumbnailsData: [Data] = []
+  static var photoData: [Data?] = []
+  static var userPicData: Data?
 }
