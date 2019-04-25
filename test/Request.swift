@@ -10,7 +10,6 @@ class Request {
     static let userAccount = "CurrentAccount"
     static let token = "token"
     static func getCommentUrlString(id: String , token: String) -> String {
-      print(token)
       return "https://api.instagram.com/v1/media/" + id + "/comments?access_token" + token
     }
   }
@@ -26,7 +25,6 @@ class Request {
         let commentsResponse = try! decoder.decode(Instagram.CommentsResponse.self, from: responseData)
         completion(commentsResponse.data)
       case .failure(let error):
-        print(response.request!)
         print(error)
       }
     }

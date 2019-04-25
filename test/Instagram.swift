@@ -50,8 +50,6 @@ enum Instagram {
         let lowResolution: Image
         let standardResolution: Image
         
-        
-        
         struct Image: Codable {
           let url: String
         }

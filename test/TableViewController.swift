@@ -4,12 +4,10 @@ import UIKit
 class TableViewController: UITableViewController {
   
   enum Constants {
-    static let defaultUserPic = #imageLiteral(resourceName: "userPic")
     static let defaultImage = #imageLiteral(resourceName: "noImage")
-    static let defaultLocation = "Location undefinded"
     static let cellIdentifier = "tableCell"
     static let logInSegueIdentifier = "logInSegue"
-    static let cellSegueIdentifier = "TVSegue"
+    static let cellSegueIdentifier = "PostViewControllerSegue"
   }
   
   var thumbnails: [UIImage] = []
@@ -34,38 +32,17 @@ class TableViewController: UITableViewController {
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let identifier = segue.identifier {
-      switch identifier {
-      case Constants.cellSegueIdentifier :
-        guard let cell = sender as? TableViewCell else {return}
-        let indexPath = tableView.indexPath(for: cell)
-        let destination = segue.destination as? PostViewController
-        guard let index = indexPath?.row else {return}
-        guard let captionText = Store.mediaResponse[index].caption?.text else {return}
-        let username = Instagram.CommentsResponse.Comment.Person.init(username: Store.mediaResponse[index].user.username)
-        let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
-        destination?.caption = caption
-        if let photo = images[index] {
-          destination?.image = photo
-        } else {
-          destination?.image = thumbnails[index]
-        }
-        guard let userPicData = Store.userPicData else {return}
-        destination?.profilePicture = UIImage(data: userPicData) ?? #imageLiteral(resourceName: "userPic")
-        destination?.accountName = Store.mediaResponse[index].user.fullName
-        destination?.location = Store.mediaResponse[index].location?.name ?? Constants.defaultLocation
-        destination?.likes = String (Store.mediaResponse[index].likes.count) + " Likes"
-        destination?.id = Store.mediaResponse[index].id
-        destination?.date =  Request.convertDate(from: Store.mediaResponse[index].createdTime)
-      case Constants.logInSegueIdentifier:
-        let destnation = segue.destination as? WebViewController
-        destnation?.isNeedAuthentication = true
-      default: break
-      }
+    guard let identifier = segue.identifier else {return}
+    switch identifier {
+    case Constants.cellSegueIdentifier :
+      Navigation.toPostViewController(from: tableView, with: segue, sender: sender,  thumbnails: thumbnails, images: images)
+    case Constants.logInSegueIdentifier:
+      Navigation.toWebViewController(with: segue, sender: sender)
+    default: break
     }
   }
   
-  // MARK: - Table View Data Source
+  // MARK: - UITableViewDataSource
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }

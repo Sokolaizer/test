@@ -5,11 +5,10 @@ class CollectionViewController: UICollectionViewController {
   
   enum Constants {
     static let reuseIdentifier = "Cell"
-    static let defaultLocation = "Location undefinded"
     static let logInSegueIdentifier = "logInSegue"
-    static let cellSegueIdentifier = "CVSegue"
+    static let cellSegueIdentifier = "PostViewControllerSegue"
   }
-  
+
   var thumbnails: [UIImage] = []
   var images: [UIImage?] = []
   
@@ -22,9 +21,11 @@ class CollectionViewController: UICollectionViewController {
     }
     DispatchQueue.global(qos: .background).async {
       for index in Store.mediaResponse.indices {
+        guard Store.mediaResponse.count > index else {return}
         guard let url = URL(string: Store.mediaResponse[index].images.standardResolution.url) else {return}
         do {
           let data = try Data(contentsOf: url)
+          guard Store.photoData.count > index else {return}
           Store.photoData[index] = data
           guard let photo = UIImage(data: data) else {return}
           self.images[index] = photo
@@ -45,7 +46,7 @@ class CollectionViewController: UICollectionViewController {
   override func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
-  
+
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return thumbnails.count
   }
@@ -63,31 +64,9 @@ class CollectionViewController: UICollectionViewController {
     guard let identifier = segue.identifier else {return}
     switch identifier {
     case Constants.cellSegueIdentifier :
-      guard let cell = sender as? CollectionViewCell else {return}
-      let indexPath = collectionView.indexPath(for: cell)
-      let destination = segue.destination as? PostViewController
-      guard let index = indexPath?.row,
-        let userPicData = Store.userPicData
-        else {return}
-      if let captionText = Store.mediaResponse[index].caption?.text {
-        let username = Instagram.CommentsResponse.Comment.Person.init(username: Store.mediaResponse[index].user.username)
-        let caption = Instagram.CommentsResponse.Comment.init(text: captionText, from: username)
-        destination?.caption = caption
-      }
-      if let photo = images[index] {
-        destination?.image = photo
-      } else {
-        destination?.image = thumbnails[index]
-      }
-      destination?.profilePicture = UIImage(data: userPicData) ?? #imageLiteral(resourceName: "userPic")
-      destination?.accountName = Store.mediaResponse[index].user.fullName
-      destination?.location = Store.mediaResponse[index].location?.name ?? Constants.defaultLocation
-      destination?.likes = String (Store.mediaResponse[index].likes.count) + " Likes"
-      destination?.id = Store.mediaResponse[index].id
-      destination?.date =  Request.convertDate(from: Store.mediaResponse[index].createdTime)
+      Navigation.toPostViewController(from: collectionView, with: segue, sender: sender,  thumbnails: thumbnails, images: images) 
     case Constants.logInSegueIdentifier:
-      let destnation = segue.destination as? WebViewController
-      destnation?.isNeedAuthentication = true
+      Navigation.toWebViewController(with: segue, sender: sender)
     default: break
     }
   }
