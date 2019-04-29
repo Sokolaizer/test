@@ -16,6 +16,8 @@
 		3060D1DF2226646200BF2068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060D1DE2226646200BF2068 /* AppDelegate.swift */; };
 		3060D1E42226646200BF2068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E22226646200BF2068 /* Main.storyboard */; };
 		3060D1E92226646700BF2068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E72226646700BF2068 /* LaunchScreen.storyboard */; };
+		308DF28722772BD1000A7FF9 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308DF28622772BD1000A7FF9 /* Photo.swift */; };
+		30CAC2EF2275D116007B8BC1 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CAC2EE2275D116007B8BC1 /* OverlayView.swift */; };
 		87033168223A863700FD456F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87033167223A863600FD456F /* Assets.xcassets */; };
 		8703316A223AB40F00FD456F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87033169223AB40F00FD456F /* WebViewController.swift */; };
 		8786514222385776005CEB91 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8786514122385776005CEB91 /* CommentTableViewCell.swift */; };
@@ -40,6 +42,8 @@
 		3060D1E32226646200BF2068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3060D1E82226646700BF2068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3060D1EA2226646700BF2068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		308DF28622772BD1000A7FF9 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		30CAC2EE2275D116007B8BC1 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		706EC9190D5BFBB01D383525 /* Pods-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-test/Pods-test.debug.xcconfig"; sourceTree = "<group>"; };
 		87033167223A863600FD456F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87033169223AB40F00FD456F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 			children = (
 				301D8D2F226606AA0036B227 /* PostImageView.swift */,
 				301D8D31226780280036B227 /* HeaderView.swift */,
+				30CAC2EE2275D116007B8BC1 /* OverlayView.swift */,
 				301D8D2B2265A54F0036B227 /* UserImageView.swift */,
 			);
 			path = Views;
@@ -109,16 +114,17 @@
 			isa = PBXGroup;
 			children = (
 				87033169223AB40F00FD456F /* WebViewController.swift */,
-				878E5A3D222AC1C600B59EDB /* TableViewController.swift */,
 				878E5A41222AC1F400B59EDB /* CollectionViewController.swift */,
+				878E5A3D222AC1C600B59EDB /* TableViewController.swift */,
 				87D30FDC223279F3005C5F87 /* PostViewController.swift */,
 				301D8D332271B4E50036B227 /* Cells */,
 				301D8D342271B5A40036B227 /* Views */,
 				301D8D2D2265AA3C0036B227 /* Navigation.swift */,
-				3060D1E22226646200BF2068 /* Main.storyboard */,
+				308DF28622772BD1000A7FF9 /* Photo.swift */,
 				87D30FD2222BED95005C5F87 /* Request.swift */,
 				3015D65B224E7DEA003550E5 /* Store.swift */,
 				301F8D13223FBA450054A966 /* Instagram.swift */,
+				3060D1E22226646200BF2068 /* Main.storyboard */,
 				3060D1EA2226646700BF2068 /* Info.plist */,
 			);
 			path = test;
@@ -270,11 +276,13 @@
 				878E5A3E222AC1C600B59EDB /* TableViewController.swift in Sources */,
 				87D30FDD223279F3005C5F87 /* PostViewController.swift in Sources */,
 				878E5A3A222AC17200B59EDB /* CollectionViewCell.swift in Sources */,
+				30CAC2EF2275D116007B8BC1 /* OverlayView.swift in Sources */,
 				301F8D14223FBA450054A966 /* Instagram.swift in Sources */,
 				87D30FD3222BED95005C5F87 /* Request.swift in Sources */,
 				3015D65C224E7DEA003550E5 /* Store.swift in Sources */,
 				8703316A223AB40F00FD456F /* WebViewController.swift in Sources */,
 				878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */,
+				308DF28722772BD1000A7FF9 /* Photo.swift in Sources */,
 				301D8D2E2265AA3C0036B227 /* Navigation.swift in Sources */,
 				301D8D30226606AA0036B227 /* PostImageView.swift in Sources */,
 				878E5A40222AC1DF00B59EDB /* TableViewCell.swift in Sources */,

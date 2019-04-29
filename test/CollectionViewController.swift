@@ -8,16 +8,13 @@ class CollectionViewController: UICollectionViewController {
     static let logInSegueIdentifier = "logInSegue"
     static let cellSegueIdentifier = "PostViewControllerSegue"
   }
-
-  var thumbnails: [UIImage] = []
-  var images: [UIImage?] = []
+  var photos: [Photo] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
     for data in Store.thumbnailsData {
-      guard let image = UIImage(data: data) else {return}
-      thumbnails.append(image)
-      images.append(nil)
+      guard let thumbnail = UIImage(data: data) else {return}
+      photos.append(Photo(thumbnail: thumbnail))
     }
     DispatchQueue.global(qos: .background).async {
       for index in Store.mediaResponse.indices {
@@ -25,10 +22,10 @@ class CollectionViewController: UICollectionViewController {
         guard let url = URL(string: Store.mediaResponse[index].images.standardResolution.url) else {return}
         do {
           let data = try Data(contentsOf: url)
-          guard Store.photoData.count > index else {return}
-          Store.photoData[index] = data
+          guard Store.imagesData.count > index else {return}
+          Store.imagesData[index] = data
           guard let photo = UIImage(data: data) else {return}
-          self.images[index] = photo
+          self.photos[index].image = photo
         } catch {
           print(error)
         }
@@ -48,15 +45,14 @@ class CollectionViewController: UICollectionViewController {
   }
 
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return thumbnails.count
+    return photos.count
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CollectionViewCell.self), for: indexPath)
-    if let cell = cell as? CollectionViewCell {
-      cell.collectionImageView.image = thumbnails[indexPath.row]
-    }
-    return cell
+    guard let collectionViewCell = cell as? CollectionViewCell else {return cell}
+    collectionViewCell.collectionImageView.image = photos[indexPath.row].thumbnail
+    return collectionViewCell
   }
   
   // MARK: Navigation
@@ -64,7 +60,7 @@ class CollectionViewController: UICollectionViewController {
     guard let identifier = segue.identifier else {return}
     switch identifier {
     case Constants.cellSegueIdentifier :
-      Navigation.toPostViewController(from: collectionView, with: segue, sender: sender,  thumbnails: thumbnails, images: images) 
+      Navigation.toPostViewController(from: collectionView, with: segue, sender: sender, photos: photos)
     case Constants.logInSegueIdentifier:
       Navigation.toWebViewController(with: segue, sender: sender)
     default: break

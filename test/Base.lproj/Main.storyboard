@@ -214,7 +214,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="photo" destination="20N-Xl-h0y" id="kJ1-xt-ppN"/>
-                                    <segue destination="Y3Z-Mt-9en" kind="show" identifier="TVSegue" id="WkV-Py-W2M"/>
+                                    <segue destination="Y3Z-Mt-9en" kind="show" identifier="PostViewControllerSegue" id="WkV-Py-W2M"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -280,10 +280,6 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tor-PD-fXg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.16515946061643835" alpha="0.82298801369863017" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7St-bJ-5Ka">
                                 <rect key="frame" x="16" y="126" width="343" height="492"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -325,17 +321,13 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="7Hd-6t-Sq1" firstAttribute="leading" secondItem="Ycf-Jr-slD" secondAttribute="leading" constant="16" id="69X-Be-2Vd"/>
-                            <constraint firstItem="tor-PD-fXg" firstAttribute="leading" secondItem="Ycf-Jr-slD" secondAttribute="leading" id="A6j-NA-mxG"/>
-                            <constraint firstItem="Ycf-Jr-slD" firstAttribute="trailing" secondItem="tor-PD-fXg" secondAttribute="trailing" id="HkN-Gc-fmo"/>
                             <constraint firstItem="7St-bJ-5Ka" firstAttribute="leading" secondItem="Ycf-Jr-slD" secondAttribute="leading" constant="16" id="KfH-65-wVJ"/>
-                            <constraint firstAttribute="bottom" secondItem="tor-PD-fXg" secondAttribute="bottom" id="O1E-UN-OH7"/>
                             <constraint firstItem="7Hd-6t-Sq1" firstAttribute="top" secondItem="Ycf-Jr-slD" secondAttribute="top" constant="22" id="OcA-Hq-zjg"/>
                             <constraint firstItem="Ycf-Jr-slD" firstAttribute="bottom" secondItem="7St-bJ-5Ka" secondAttribute="bottom" id="Uwa-Ey-8W3"/>
                             <constraint firstItem="Ycf-Jr-slD" firstAttribute="trailing" secondItem="7St-bJ-5Ka" secondAttribute="trailing" constant="16" id="eUA-T9-kVc"/>
                             <constraint firstItem="meA-jD-S3h" firstAttribute="leading" secondItem="7Hd-6t-Sq1" secondAttribute="trailing" priority="750" constant="8" id="feN-mJ-HqD"/>
                             <constraint firstItem="meA-jD-S3h" firstAttribute="top" secondItem="Ycf-Jr-slD" secondAttribute="top" constant="22" id="h5a-EM-yit"/>
                             <constraint firstItem="7St-bJ-5Ka" firstAttribute="top" secondItem="7Hd-6t-Sq1" secondAttribute="bottom" constant="5" id="qxN-5F-gUs"/>
-                            <constraint firstItem="tor-PD-fXg" firstAttribute="top" secondItem="AVf-f2-uWf" secondAttribute="top" id="wEk-jM-L0Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ycf-Jr-slD"/>
                     </view>
@@ -348,7 +340,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="accountNameLabel" destination="DaS-m9-Ph3" id="2TE-au-sQV"/>
-                        <outlet property="fadeView" destination="tor-PD-fXg" id="zCy-3K-RaY"/>
                         <outlet property="locationLabel" destination="q5u-2M-qbd" id="skv-WJ-ILX"/>
                         <outlet property="photoTableView" destination="7St-bJ-5Ka" id="SVk-ep-Mwh"/>
                         <outlet property="userPic" destination="7Hd-6t-Sq1" id="0Ee-Kj-Pt6"/>
@@ -387,6 +378,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WkV-Py-W2M"/>
-        <segue reference="MzM-ZZ-CDe"/>
+        <segue reference="yU7-yF-QSq"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -41,7 +41,7 @@ class PostViewController: UIViewController {
   
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    headerView = HeaderView(with: image, asTableHeaderViewIn: photoTableView, like: likes, date: date, delegate: self, fadeView: fadeView, navController: self.navigationController)
+    headerView = HeaderView(with: image, asTableHeaderViewIn: photoTableView, like: likes, date: date, delegate: self, navController: self.navigationController)
     photoTableView.addSubview(headerView)
     headerView.setConstraints()
   }
@@ -55,7 +55,6 @@ class PostViewController: UIViewController {
   @IBOutlet weak private var userPic: UserImageView!
   @IBOutlet weak private var accountNameLabel: UILabel!
   @IBOutlet weak private var locationLabel: UILabel!
-  @IBOutlet weak var fadeView: UIView!
   var headerView: HeaderView!
   
   @IBAction func logOut(_ sender: UIBarButtonItem) {
@@ -66,7 +65,7 @@ class PostViewController: UIViewController {
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     guard let identifier = segue.identifier else {return}
-    if identifier == identifier {
+    if identifier == Constants.logInSegueIdentifier {
     Navigation.toWebViewController(with: segue, sender: sender)
     }
   }
@@ -92,12 +91,11 @@ extension PostViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Constants.commentCellIdentifier, for: indexPath)
-    if let cell = cell as? CommentTableViewCell {
-      let attributedUserString = NSMutableAttributedString(string:( comments[indexPath.row].from.username + "  "), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: Constants.commentFontSize, weight: .medium)])
-      let attributedCommentString = NSMutableAttributedString(string: comments[indexPath.row].text, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: Constants.commentFontSize, weight: .light)])
-      attributedUserString.append(attributedCommentString)
-      cell.commentLabel.attributedText = attributedUserString
-    }
-    return cell
+    guard let commentTableViewCell = cell as? CommentTableViewCell else {return cell}
+    let attributedUserString = NSMutableAttributedString(string:( comments[indexPath.row].from.username + "  "), attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: Constants.commentFontSize, weight: .medium)])
+    let attributedCommentString = NSMutableAttributedString(string: comments[indexPath.row].text, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: Constants.commentFontSize, weight: .light)])
+    attributedUserString.append(attributedCommentString)
+    commentTableViewCell.commentLabel.attributedText = attributedUserString
+    return commentTableViewCell
   }
 }

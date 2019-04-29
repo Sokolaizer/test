@@ -56,7 +56,7 @@ class Request {
         let userPicData = try? Data(contentsOf: userPicURL) else {return}
       Store.thumbnailsData.append(data)
       Store.userPicData = userPicData
-      Store.photoData.append(nil)
+      Store.imagesData.append(nil)
     }
   }
   
@@ -71,7 +71,7 @@ class Request {
   static func logOut() {
     Store.mediaResponse.removeAll()
     Store.thumbnailsData.removeAll()
-    Store.photoData.removeAll()
+    Store.imagesData.removeAll()
     Store.userPicData = nil
     do {
       try Locksmith.deleteDataForUserAccount(userAccount: Constant.userAccount)

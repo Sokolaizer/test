@@ -9,19 +9,16 @@ class TableViewController: UITableViewController {
     static let logInSegueIdentifier = "logInSegue"
     static let cellSegueIdentifier = "PostViewControllerSegue"
   }
-  
-  var thumbnails: [UIImage] = []
-  var images: [UIImage?] = []
+  var photos: [Photo] = []
   
   override func viewDidLoad() {
     for data in Store.thumbnailsData {
-      guard let image = UIImage(data: data) else {return}
-      thumbnails.append(image)
-      images.append(nil)
+      guard let thumbnail = UIImage(data: data) else {return}
+      photos.append(Photo(thumbnail: thumbnail))
     }
-    for index in Store.photoData.indices {
-      guard let image = UIImage(data: Store.photoData[index] ?? Store.thumbnailsData[index]) else {return}
-      images[index] = image
+    for index in Store.imagesData.indices {
+      guard let image = UIImage(data: Store.imagesData[index] ?? Store.thumbnailsData[index]) else {return}
+      photos[index].image = image
     }
   }
   
@@ -35,7 +32,7 @@ class TableViewController: UITableViewController {
     guard let identifier = segue.identifier else {return}
     switch identifier {
     case Constants.cellSegueIdentifier :
-      Navigation.toPostViewController(from: tableView, with: segue, sender: sender,  thumbnails: thumbnails, images: images)
+      Navigation.toPostViewController(from: tableView, with: segue, sender: sender, photos: photos)
     case Constants.logInSegueIdentifier:
       Navigation.toWebViewController(with: segue, sender: sender)
     default: break
@@ -53,19 +50,18 @@ class TableViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath)
-    if let cell = cell as? TableViewCell {
-      let data: Data
-      if Store.photoData[indexPath.row] != nil {
-        data = Store.photoData[indexPath.row]!
-      } else {
-        data = Store.thumbnailsData[indexPath.row]
-      }
-      if let image = UIImage(data: data) {
-        cell.photo.image = image
-      } else {
-        cell.photo.image = Constants.defaultImage
-      }
+    guard let tableViewCell = cell as? TableViewCell else {return cell}
+    let data: Data
+    if Store.imagesData[indexPath.row] != nil {
+      data = Store.imagesData[indexPath.row]!
+    } else {
+      data = Store.thumbnailsData[indexPath.row]
     }
-    return cell
+    if let image = UIImage(data: data) {
+      tableViewCell.photo.image = image
+    } else {
+      tableViewCell.photo.image = Constants.defaultImage
+    }
+    return tableViewCell
   }
 }

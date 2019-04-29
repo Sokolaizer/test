@@ -6,7 +6,7 @@ class PostImageView: UIImageView {
   var isZooming = false
   var originalImageCenter:CGPoint?
   weak var tableView: UITableView!
-  weak var fadeView: UIView!
+  var overlayView = OverlayView()
   let navigationController: UINavigationController?
   
   func setGestures(tableView: UITableView, delegate: UIGestureRecognizerDelegate) {
@@ -34,13 +34,13 @@ class PostImageView: UIImageView {
   @objc func pinch(sender:UIPinchGestureRecognizer) {
     if sender.state == .began {
       navigationController?.navigationBar.isHidden = true
-      self.tableView.clipsToBounds = false
-      self.tableView.isScrollEnabled = false
+      overlayView.isHidden = false
+      tableView.clipsToBounds = false
+      tableView.isScrollEnabled = false
       let currentScale = self.frame.size.width / self.bounds.size.width
       let newScale = currentScale*sender.scale
       if newScale > 1 {
-        self.isZooming = true
-        self.fadeView.isHidden = false
+        isZooming = true
       }
     } else if sender.state == .changed {
       guard let view = sender.view else {return}
@@ -69,7 +69,7 @@ class PostImageView: UIImageView {
         self.center = center
       }, completion: { _ in
         self.isZooming = false
-        self.fadeView.isHidden = true
+        self.overlayView.isHidden = true
         self.tableView.clipsToBounds = true
         self.tableView.isScrollEnabled = true
         self.navigationController?.navigationBar.isHidden = false
@@ -77,13 +77,11 @@ class PostImageView: UIImageView {
     }
   }
   
-  init(with image: UIImage, asTableHeaderViewIn tableView: UITableView, fadeView: UIView, navController:UINavigationController?) {
+  init(with image: UIImage, asTableHeaderViewIn tableView: UITableView, navController:UINavigationController?) {
     self.navigationController = navController
     self.tableView = tableView
-    self.fadeView = fadeView
     super.init(image: image)
     self.contentMode = .scaleAspectFill
-    self.clipsToBounds = true
     self.isUserInteractionEnabled = true
   }
   
