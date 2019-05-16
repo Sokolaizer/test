@@ -39,9 +39,9 @@ class HeaderView: UIView {
     likeLabel.translatesAutoresizingMaskIntoConstraints = false
   }
   
-  init(with image: UIImage, asTableHeaderViewIn tableView: UITableView, like: String, date: String, delegate: UIGestureRecognizerDelegate, navController: UINavigationController?) {
+  init(with image: UIImage, asTableHeaderViewIn tableView: UITableView, like: String, date: String, delegate: UIGestureRecognizerDelegate, navController: UINavigationController?, tabBarController: UITabBarController?) {
     self.tableView = tableView
-    postImageView = PostImageView(with: image, asTableHeaderViewIn: tableView, navController: navController)
+    postImageView = PostImageView(with: image, asTableHeaderViewIn: tableView, navController: navController, tabBarController: tabBarController)
     likeLabel = UILabel(frame: .zero)
     dateLabel = UILabel(frame: .zero)
     likeLabel.text = like

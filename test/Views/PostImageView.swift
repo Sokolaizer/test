@@ -8,6 +8,7 @@ class PostImageView: UIImageView {
   weak var tableView: UITableView!
   var overlayView = OverlayView()
   let navigationController: UINavigationController?
+  let tabBarController: UITabBarController?
   
   func setGestures(tableView: UITableView, delegate: UIGestureRecognizerDelegate) {
     let pinch = UIPinchGestureRecognizer(target: self, action: #selector(self.pinch(sender:)))
@@ -33,7 +34,8 @@ class PostImageView: UIImageView {
   
   @objc func pinch(sender:UIPinchGestureRecognizer) {
     if sender.state == .began {
-      navigationController?.navigationBar.isHidden = true
+      navigationController?.navigationBar.alpha = 0
+      tabBarController?.tabBar.alpha = 0
       overlayView.isHidden = false
       tableView.clipsToBounds = false
       tableView.isScrollEnabled = false
@@ -51,13 +53,14 @@ class PostImageView: UIImageView {
         .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
       let currentScale = self.frame.size.width / self.bounds.size.width
       var newScale = currentScale*sender.scale
+      overlayView.alpha = (newScale * newScale) / 1.5
       if newScale < 1 {
         newScale = 1
         let transform = CGAffineTransform(scaleX: newScale, y: newScale)
         self.transform = transform
         sender.scale = 1
-      } else if newScale > 1.8 {
-        newScale = 1.8
+      } else if newScale > 2.0 {
+        newScale = 2.0
       } else {
         view.transform = transform
         sender.scale = 1
@@ -66,20 +69,23 @@ class PostImageView: UIImageView {
       guard let center = self.originalImageCenter else {return}
       UIView.animate(withDuration: 0.3, animations: {
         self.transform = CGAffineTransform.identity
+        self.overlayView.alpha = 0
+        self.navigationController?.navigationBar.alpha = 1
+        self.tabBarController?.tabBar.alpha = 1
         self.center = center
       }, completion: { _ in
         self.isZooming = false
         self.overlayView.isHidden = true
         self.tableView.clipsToBounds = true
         self.tableView.isScrollEnabled = true
-        self.navigationController?.navigationBar.isHidden = false
       })
     }
   }
   
-  init(with image: UIImage, asTableHeaderViewIn tableView: UITableView, navController:UINavigationController?) {
+  init(with image: UIImage, asTableHeaderViewIn tableView: UITableView, navController:UINavigationController?, tabBarController: UITabBarController?) {
     self.navigationController = navController
     self.tableView = tableView
+    self.tabBarController = tabBarController
     super.init(image: image)
     self.contentMode = .scaleAspectFill
     self.isUserInteractionEnabled = true

@@ -13,6 +13,7 @@
 		301D8D30226606AA0036B227 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D8D2F226606AA0036B227 /* PostImageView.swift */; };
 		301D8D32226780280036B227 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D8D31226780280036B227 /* HeaderView.swift */; };
 		301F8D14223FBA450054A966 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301F8D13223FBA450054A966 /* Instagram.swift */; };
+		303942A22284B32000A872D4 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303942A12284B32000A872D4 /* Preferences.swift */; };
 		3060D1DF2226646200BF2068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3060D1DE2226646200BF2068 /* AppDelegate.swift */; };
 		3060D1E42226646200BF2068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E22226646200BF2068 /* Main.storyboard */; };
 		3060D1E92226646700BF2068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3060D1E72226646700BF2068 /* LaunchScreen.storyboard */; };
@@ -37,6 +38,7 @@
 		301D8D2F226606AA0036B227 /* PostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
 		301D8D31226780280036B227 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		301F8D13223FBA450054A966 /* Instagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
+		303942A12284B32000A872D4 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		3060D1DB2226646200BF2068 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3060D1DE2226646200BF2068 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3060D1E32226646200BF2068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				87D30FD2222BED95005C5F87 /* Request.swift */,
 				3015D65B224E7DEA003550E5 /* Store.swift */,
 				301F8D13223FBA450054A966 /* Instagram.swift */,
+				303942A12284B32000A872D4 /* Preferences.swift */,
 				3060D1E22226646200BF2068 /* Main.storyboard */,
 				3060D1EA2226646700BF2068 /* Info.plist */,
 			);
@@ -280,6 +283,7 @@
 				301F8D14223FBA450054A966 /* Instagram.swift in Sources */,
 				87D30FD3222BED95005C5F87 /* Request.swift in Sources */,
 				3015D65C224E7DEA003550E5 /* Store.swift in Sources */,
+				303942A22284B32000A872D4 /* Preferences.swift in Sources */,
 				8703316A223AB40F00FD456F /* WebViewController.swift in Sources */,
 				878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */,
 				308DF28722772BD1000A7FF9 /* Photo.swift in Sources */,

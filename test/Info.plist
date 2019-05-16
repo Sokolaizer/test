@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>token</key>
+	<string>token</string>
+	<key>userAccount</key>
+	<string>CurrentAccount</string>
+	<key>tokenPrefix</key>
+	<string>http://localhost/#access_token=</string>
+	<key>authenticationPrefix</key>
+	<string>https://www.instagram.com/accounts/login/?force_authentication=</string>
+	<key>forceAuthentication</key>
+	<string>https://www.instagram.com/accounts/login/?force_authentication=1&amp;only_user_pwd_authentication=1&amp;platform_app_id=&amp;next=/oauth/authorize/%3Fclient_id%3Dfae335ebae924fc5aa5855df05ee457d%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken</string>
+	<key>authorizeURL</key>
+	<string>https://api.instagram.com/oauth/authorize/?client_id=fae335ebae924fc5aa5855df05ee457d&amp;redirect_uri=http://localhost&amp;response_type=token&amp;hl=en</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

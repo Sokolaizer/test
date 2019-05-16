@@ -41,7 +41,7 @@ class PostViewController: UIViewController {
   
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    headerView = HeaderView(with: image, asTableHeaderViewIn: photoTableView, like: likes, date: date, delegate: self, navController: self.navigationController)
+    headerView = HeaderView(with: image, asTableHeaderViewIn: photoTableView, like: likes, date: date, delegate: self, navController: self.navigationController, tabBarController: self.tabBarController)
     photoTableView.addSubview(headerView)
     headerView.setConstraints()
   }
