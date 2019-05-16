@@ -16,20 +16,9 @@ class CollectionViewController: UICollectionViewController {
       guard let thumbnail = UIImage(data: data) else {return}
       photos.append(Photo(thumbnail: thumbnail))
     }
-    DispatchQueue.global(qos: .background).async {
-      for index in Store.mediaResponse.indices {
-        guard Store.mediaResponse.count > index else {return}
-        guard let url = URL(string: Store.mediaResponse[index].images.standardResolution.url) else {return}
-        do {
-          let data = try Data(contentsOf: url)
-          guard Store.imagesData.count > index else {return}
-          Store.imagesData[index] = data
-          guard let photo = UIImage(data: data) else {return}
-          self.photos[index].image = photo
-        } catch {
-          print(error)
-        }
-      }
+    Store.getImagesData { data, index in
+      guard let photo = UIImage(data: data) else {return}
+      self.photos[index].image = photo
     }
     self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.reuseIdentifier)
   }
