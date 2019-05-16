@@ -6,6 +6,8 @@ class HeaderView: UIView {
     static let likeImageViewHeight: CGFloat = 32.0
     static let space: CGFloat = 5.0
     static let heightSpace: CGFloat = 42.0
+    static let likeLabelFontSize: CGFloat = 17.0
+    static let dateLabelFontSize: CGFloat = 13.0
   }
   
   let postImageView: PostImageView
@@ -45,9 +47,9 @@ class HeaderView: UIView {
     likeLabel = UILabel(frame: .zero)
     dateLabel = UILabel(frame: .zero)
     likeLabel.text = like
-    likeLabel.font = .systemFont(ofSize: 17.0, weight: .medium)
+    likeLabel.font = .systemFont(ofSize: Constants.likeLabelFontSize, weight: .medium)
     dateLabel.text = date
-    dateLabel.font = .systemFont(ofSize: 13.0, weight: .thin)
+    dateLabel.font = .systemFont(ofSize: Constants.dateLabelFontSize, weight: .thin)
     dateLabel.textColor = .darkGray
     likeImageView = UIImageView(image: #imageLiteral(resourceName: "like"))
     super.init(frame: .zero)

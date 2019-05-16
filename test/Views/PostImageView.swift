@@ -2,6 +2,12 @@
 import UIKit
 
 class PostImageView: UIImageView {
+  enum Constants {
+    static let maximumZoomScale: CGFloat = 2.0
+    static let minimumZoomScale: CGFloat = 1.0
+    static let duration = 0.3
+    static let alphaRatio: CGFloat = 1.5
+  }
   
   var isZooming = false
   var originalImageCenter:CGPoint?
@@ -41,7 +47,7 @@ class PostImageView: UIImageView {
       tableView.isScrollEnabled = false
       let currentScale = self.frame.size.width / self.bounds.size.width
       let newScale = currentScale*sender.scale
-      if newScale > 1 {
+      if newScale > Constants.minimumZoomScale {
         isZooming = true
       }
     } else if sender.state == .changed {
@@ -53,21 +59,21 @@ class PostImageView: UIImageView {
         .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
       let currentScale = self.frame.size.width / self.bounds.size.width
       var newScale = currentScale*sender.scale
-      overlayView.alpha = (newScale * newScale) / 1.5
-      if newScale < 1 {
-        newScale = 1
+      overlayView.alpha = (newScale * newScale) / Constants.alphaRatio
+      if newScale < Constants.minimumZoomScale {
+        newScale = Constants.minimumZoomScale
         let transform = CGAffineTransform(scaleX: newScale, y: newScale)
         self.transform = transform
-        sender.scale = 1
-      } else if newScale > 2.0 {
-        newScale = 2.0
+        sender.scale = Constants.minimumZoomScale
+      } else if newScale > Constants.maximumZoomScale {
+        newScale = Constants.maximumZoomScale
       } else {
         view.transform = transform
-        sender.scale = 1
+        sender.scale = Constants.minimumZoomScale
       }
     } else if sender.state == .ended || sender.state == .failed || sender.state == .cancelled {
       guard let center = self.originalImageCenter else {return}
-      UIView.animate(withDuration: 0.3, animations: {
+      UIView.animate(withDuration: Constants.duration, animations: {
         self.transform = CGAffineTransform.identity
         self.overlayView.alpha = 0
         self.navigationController?.navigationBar.alpha = 1
