@@ -28,8 +28,23 @@
 		878E5A42222AC1F400B59EDB /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878E5A41222AC1F400B59EDB /* CollectionViewController.swift */; };
 		87D30FD3222BED95005C5F87 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D30FD2222BED95005C5F87 /* Request.swift */; };
 		87D30FDD223279F3005C5F87 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D30FDC223279F3005C5F87 /* PostViewController.swift */; };
-		AE0F231B40F51A1EF4C8ABF8 /* Pods_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53C5D4EB1476072812EDE79 /* Pods_test.framework */; };
+		E05FDAF623F328AF009A834C /* Pods_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A53C5D4EB1476072812EDE79 /* Pods_test.framework */; };
+		E05FDAF723F328AF009A834C /* Pods_test.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A53C5D4EB1476072812EDE79 /* Pods_test.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E05FDAF523F3287B009A834C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E05FDAF723F328AF009A834C /* Pods_test.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3015D65B224E7DEA003550E5 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -58,6 +73,14 @@
 		87D30FDC223279F3005C5F87 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		A53C5D4EB1476072812EDE79 /* Pods_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C61A1BFCCB2752BC8841E560 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Pods/Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
+		E05FDAEC23F32260009A834C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDAED23F32260009A834C /* Locksmith.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Locksmith.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDAF223F3287B009A834C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDAF823F32934009A834C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDAF923F32934009A834C /* Locksmith.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Locksmith.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDAFE23F32987009A834C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDAFF23F32987009A834C /* Locksmith.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Locksmith.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E05FDB0423F32D7B009A834C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE0F231B40F51A1EF4C8ABF8 /* Pods_test.framework in Frameworks */,
+				E05FDAF623F328AF009A834C /* Pods_test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +169,14 @@
 		C941D5BA9201DDB8F028F954 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E05FDB0423F32D7B009A834C /* Alamofire.framework */,
+				E05FDAFE23F32987009A834C /* Alamofire.framework */,
+				E05FDAFF23F32987009A834C /* Locksmith.framework */,
+				E05FDAF823F32934009A834C /* Alamofire.framework */,
+				E05FDAF923F32934009A834C /* Locksmith.framework */,
+				E05FDAF223F3287B009A834C /* Alamofire.framework */,
+				E05FDAEC23F32260009A834C /* Alamofire.framework */,
+				E05FDAED23F32260009A834C /* Locksmith.framework */,
 				A53C5D4EB1476072812EDE79 /* Pods_test.framework */,
 			);
 			name = Frameworks;
@@ -172,6 +203,7 @@
 				3060D1D82226646200BF2068 /* Frameworks */,
 				3060D1D92226646200BF2068 /* Resources */,
 				4DE29D0B3A5959C2D7ED50E8 /* [CP] Embed Pods Frameworks */,
+				E05FDAF523F3287B009A834C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
